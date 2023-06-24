@@ -69,7 +69,12 @@ export const ConversationSidebarStyle = styled.aside`
   border-right: 1px solid #5454543d;
   overflow-y: scroll;
   ::-webkit-scrollbar {
+    //width: 10px;
+    //height: 5px;
     display: none;
+  }
+  ::-webkit-scrollbar-thumb {
+    //background-color: #2d2d2d;
   }
 `;
 

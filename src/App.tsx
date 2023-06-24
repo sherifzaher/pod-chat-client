@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import RegisterPage from '@/pages/register-page';
 import LoginPage from '@/pages/login-page';
 import ConversationChannelPage from '@/pages/conversation-channel-page';
-import ConversationsPage from '@/pages/converstaions-page';
+import ConversationsPage from '@/pages/conversation-page';
 
 function App() {
   return (
