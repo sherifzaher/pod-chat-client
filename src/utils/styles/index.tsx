@@ -9,6 +9,7 @@ export const InputField = styled.input`
   font-size: 18px;
   background-color: inherit;
   margin: 4px 0;
+  width: 100%;
 `;
 
 export const InputContainer = styled.div`
@@ -31,11 +32,21 @@ export const Button = styled.button`
   background-color: #2b09ff;
   color: white;
   outline: none;
-  border: none;
-  cursor: pointer;
   font-size: 16px;
   border-radius: 10px;
   padding: 25px;
+  font-weight: 500;
+  transition: 250ms background-color ease-in;
+  transition: 300ms border-color ease-in;
+  border: 2px solid #2b09ff;
+  &:focus{
+    background-color: #4f34ff;
+    border-color: #fff;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: #3415ff;
+  }
 `;
 
 export const Page = styled.div`

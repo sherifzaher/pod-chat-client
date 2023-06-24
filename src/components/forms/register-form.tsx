@@ -1,9 +1,16 @@
+import { ChangeEvent } from "react";
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
+
+import {Link} from "react-router-dom";
 import styles from './index.module.scss';
 
 function RegisterForm() {
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={onSubmit}>
       <InputContainer>
         <InputLabel htmlFor="email">Email</InputLabel>
         <InputField id="email" name="email" />
@@ -20,9 +27,13 @@ function RegisterForm() {
       </section>
       <InputContainer>
         <InputLabel htmlFor="password">Password</InputLabel>
-        <InputField id="password" name="password" />
+        <InputField id="password" type="password" name="password" />
       </InputContainer>
       <Button className={styles.button}>Create My Account</Button>
+      <div className={styles.footerText}>
+        <span>Already have an account? </span>
+        <Link to="/login">Login</Link>
+      </div>
     </form>
   );
 }
