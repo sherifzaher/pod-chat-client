@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import {Link} from "react-router-dom";
+import { ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
 
 import styles from './index.module.scss';

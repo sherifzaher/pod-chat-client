@@ -1,12 +1,12 @@
-import {Page} from "@/utils/styles";
-import LoginForm from "@/components/forms/login-form";
+import { Page } from '@/utils/styles';
+import LoginForm from '@/components/forms/login-form';
 
-function LoginPage(){
-    return (
-        <Page>
-            <LoginForm />
-        </Page>
-    )
+function LoginPage() {
+  return (
+    <Page>
+      <LoginForm />
+    </Page>
+  );
 }
 
-export default LoginPage
+export default LoginPage;

@@ -39,7 +39,7 @@ export const Button = styled.button`
   transition: 250ms background-color ease-in;
   transition: 300ms border-color ease-in;
   border: 2px solid #2b09ff;
-  &:focus{
+  &:focus {
     background-color: #4f34ff;
     border-color: #fff;
   }

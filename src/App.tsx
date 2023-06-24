@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import RegisterPage from '@/pages/register-page';
-import LoginPage from "@/pages/login-page";
+import LoginPage from '@/pages/login-page';
 
 function App() {
   return (

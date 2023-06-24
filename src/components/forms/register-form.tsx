@@ -1,7 +1,7 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
 
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styles from './index.module.scss';
 
 function RegisterForm() {
