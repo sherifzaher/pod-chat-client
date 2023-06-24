@@ -3,7 +3,7 @@ import { Page } from '@/utils/styles';
 
 function RegisterPage() {
   return (
-    <Page>
+    <Page display="flex" alignItems="center" justifyContent="center">
       <RegisterForm />
     </Page>
   );

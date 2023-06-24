@@ -1,6 +1,9 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+
 import RegisterPage from '@/pages/register-page';
 import LoginPage from '@/pages/login-page';
+import ConversationChannelPage from '@/pages/conversation-channel-page';
+import ConversationsPage from '@/pages/converstaions-page';
 
 function App() {
   return (
@@ -8,16 +11,8 @@ function App() {
       <Routes>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="conversations"
-          element={
-            <div>
-              <div>Conversations</div>
-              <Outlet />
-            </div>
-          }
-        >
-          <Route path=":id" element={<div>Conversation ID Page</div>} />
+        <Route path="conversations" element={<ConversationsPage />}>
+          <Route path=":id" element={<ConversationChannelPage />} />
         </Route>
       </Routes>
     </>
