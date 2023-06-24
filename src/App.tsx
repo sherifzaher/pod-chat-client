@@ -1,19 +1,20 @@
 import './App.css';
 import { Outlet, Route, Routes } from 'react-router-dom';
+import AuthenticationPage from './pages/authentication-page';
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<div>Hello, name</div>} />
+        <Route path="/" element={<AuthenticationPage />} />
         <Route
           path="conversations"
-          element={
+          element={(
             <div>
               <div>Conversations</div>
               <Outlet />
             </div>
-          }>
+          )}>
           <Route path=":id" element={<div>Conversation ID Page</div>} />
         </Route>
       </Routes>
