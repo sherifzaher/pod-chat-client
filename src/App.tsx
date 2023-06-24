@@ -1,5 +1,5 @@
-import "./App.css";
-import { Outlet, Route, Routes } from "react-router-dom";
+import './App.css';
+import { Outlet, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
@@ -13,8 +13,7 @@ function App() {
               <div>Conversations</div>
               <Outlet />
             </div>
-          }
-        >
+          }>
           <Route path=":id" element={<div>Conversation ID Page</div>} />
         </Route>
       </Routes>
