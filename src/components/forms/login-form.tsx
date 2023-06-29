@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
+import { postLoginUser } from "@/utils/api";
 
 import styles from './index.module.scss';
 
@@ -9,13 +10,19 @@ function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
-  const onSubmit = (e: any) => {
-    console.log(e);
+  } = useForm<UserCredentialsParams>();
+  const navigate = useNavigate();
+  const onSubmit = async (data: UserCredentialsParams) => {
+    try {
+      await postLoginUser(data);
+      navigate('/conversations');
+    } catch (err){
+      console.log(err);
+    }
   };
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <InputContainer>
         <InputLabel htmlFor="email">Email</InputLabel>
         <InputField

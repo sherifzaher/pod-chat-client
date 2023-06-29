@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
+import { postRegisterUser } from "@/utils/api";
 
-import { Link } from 'react-router-dom';
 import styles from './index.module.scss';
 
 function RegisterForm() {
@@ -10,9 +10,13 @@ function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
-  const onSubmit = (e: any) => {
-    console.log(e);
+  } = useForm<CreateUserParams>();
+  const onSubmit = async (data: CreateUserParams) => {
+    try {
+      await postRegisterUser(data);
+    } catch (err){
+      console.log(err);
+    }
   };
 
   return (
