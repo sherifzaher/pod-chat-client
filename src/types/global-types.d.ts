@@ -9,16 +9,16 @@ type CreateUserParams = {
   firstName: string;
   lastName: string;
   password: string;
-}
+};
 
 type UserCredentialsParams = {
   email: string;
   password: string;
-}
+};
 
 type User = {
   id: string;
   email: string;
   firstName: string;
   lastName: string;
-}
+};

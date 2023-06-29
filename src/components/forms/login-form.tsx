@@ -1,7 +1,7 @@
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
-import { postLoginUser } from "@/utils/api";
+import { postLoginUser } from '@/utils/api';
 
 import styles from './index.module.scss';
 
@@ -16,7 +16,7 @@ function RegisterForm() {
     try {
       await postLoginUser(data);
       navigate('/conversations');
-    } catch (err){
+    } catch (err) {
       console.log(err);
     }
   };

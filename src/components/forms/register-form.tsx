@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
-import { postRegisterUser } from "@/utils/api";
+import { postRegisterUser } from '@/utils/api';
 
 import styles from './index.module.scss';
 
@@ -14,7 +14,7 @@ function RegisterForm() {
   const onSubmit = async (data: CreateUserParams) => {
     try {
       await postRegisterUser(data);
-    } catch (err){
+    } catch (err) {
       console.log(err);
     }
   };
