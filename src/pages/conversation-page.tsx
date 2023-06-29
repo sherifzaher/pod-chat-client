@@ -8,7 +8,7 @@ function ConversationsPage() {
   const { id } = useParams();
   return (
     <Page>
-      <ConversationSidebar conversations={mockConversations} />
+      <ConversationSidebar conversations={[]} />
       {!id && <ConversationPanel />}
       <Outlet />
     </Page>

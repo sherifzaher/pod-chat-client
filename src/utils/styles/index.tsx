@@ -14,8 +14,8 @@ export const InputField = styled.input`
   width: 100%;
 `;
 
-export const InputContainer = styled.div`
-  background-color: #131313;
+export const InputContainer = styled.div<InputContainerProps>`
+  background-color: ${(props) => props.backgroundColor || "#131313"};
   color: white;
   padding: 12px 16px;
   border-radius: 10px;
@@ -107,4 +107,51 @@ export const ConversationSidebarItem = styled.div`
   padding: 14px 18px;
   border-bottom: 1px solid #5454543d;
   background-color: #131313;
+`;
+
+export const OverlayStyle = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: #000000c4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+`;
+
+export const ModalContainerStyle = styled.header`
+  background-color: #121212;
+  width: 650px;
+`;
+
+export const ModalHeaderStyle = styled.header`
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  & h2 {
+    font-weight: 400;
+  }
+`;
+
+export const ModalContentBodyStyle = styled.div`
+  padding: 20px;
+`;
+
+export const TextField = styled.textarea`
+  border-sizing: border-box;
+  font-family: 'Inter';
+  width: 100%;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  background-color: inherit;
+  resize: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

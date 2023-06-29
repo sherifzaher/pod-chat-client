@@ -45,3 +45,7 @@ type PageProps = Partial<{
   justifyContent: JustifyContent;
   alignItems: AlignItems;
 }>;
+
+type InputContainerProps = Partial<{
+  backgroundColor: string;
+}>
