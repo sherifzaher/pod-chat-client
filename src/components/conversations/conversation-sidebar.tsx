@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TbEdit } from "react-icons/tb";
-import CreateConversationModal from "@/components/modals/create-conversation-modal";
+import { TbEdit } from 'react-icons/tb';
+import CreateConversationModal from '@/components/modals/create-conversation-modal';
 import {
   ConversationSidebarContainer,
   ConversationSidebarHeader,
@@ -16,18 +16,16 @@ type Props = {
 
 function ConversationSidebar({ conversations }: Props) {
   const navigate = useNavigate();
-  const [showModal,setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      {showModal && (
-        <CreateConversationModal setShowModal={setShowModal} />
-      )}
+      {showModal && <CreateConversationModal setShowModal={setShowModal} />}
       <ConversationSidebarStyle>
         <ConversationSidebarHeader>
           <h1>Conversations</h1>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={() => setShowModal(prev  => !prev)}>
+          <div onClick={() => setShowModal((prev) => !prev)}>
             <TbEdit size="30" />
           </div>
         </ConversationSidebarHeader>

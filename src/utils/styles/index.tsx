@@ -15,7 +15,7 @@ export const InputField = styled.input`
 `;
 
 export const InputContainer = styled.div<InputContainerProps>`
-  background-color: ${(props) => props.backgroundColor || "#131313"};
+  background-color: ${(props) => props.backgroundColor || '#131313'};
   color: white;
   padding: 12px 16px;
   border-radius: 10px;

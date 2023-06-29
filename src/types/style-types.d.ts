@@ -48,4 +48,4 @@ type PageProps = Partial<{
 
 type InputContainerProps = Partial<{
   backgroundColor: string;
-}>
+}>;
