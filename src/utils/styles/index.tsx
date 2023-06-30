@@ -157,3 +157,100 @@ export const TextField = styled.textarea`
     display: none;
   }
 `;
+
+export const MessagePanelStyle = styled.div`
+  background-color: inherit;
+  height: 100%;
+  position: relative;
+`;
+
+export const MessagePanelBody = styled.div`
+  height: 100%;
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+`;
+
+export const MessageContainerStyle = styled.div`
+  height: 100%;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  & ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const MessageInputContainer = styled.div`
+  border-radius: 10px;
+  background-color: #101010;
+  width: 100%;
+  padding: 18px 32px;
+`;
+
+export const MessageInput = styled.input`
+  background-color: inherit;
+  resize: none;
+  outline: none;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  margin: 4px 0;
+  color: #454545;
+  font-family: "Inter", BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+`;
+
+export const MessageItemContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 5px 0;
+`;
+
+export const MessageItemAvatar = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: #b12b2b;
+  border-radius: 50%;
+`;
+
+export const MessageItemDetails = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const MessageItemHeader = styled.div`
+  display: flex;
+  gap: 12px;
+  .time {
+    color: #6D6D6D;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .authorName {
+    font-weight: 600;
+    font-size: 16px;
+  }
+`;
+
+export const MessageItemContent = styled.div<MessageItemContentProps>`
+  padding: ${(props) => props.padding};
+`;
+
+export const MessagePanelHeaderStyle = styled.header`
+  background-color: #151515;
+  border-bottom: 1px solid #5454543d;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;

@@ -29,3 +29,10 @@ type Conversation = {
   creator: User;
   recipient: User;
 };
+
+type Message = {
+  id: number;
+  content: string;
+  createdAt: string;
+  author: User;
+}

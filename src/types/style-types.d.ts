@@ -49,3 +49,7 @@ type PageProps = Partial<{
 type InputContainerProps = Partial<{
   backgroundColor: string;
 }>;
+
+type MessageItemContentProps = Partial<{
+  padding: string;
+}>;
