@@ -119,4 +119,4 @@ export default [
     name: 'Conner',
     lastMessage: 'How are you???'
   }
-] as Conversation[];
+] as ConversationType[];

@@ -1,4 +1,4 @@
-type Conversation = {
+type ConversationType = {
   id: number;
   name: string;
   lastMessage: string;
@@ -21,4 +21,11 @@ type User = {
   email: string;
   firstName: string;
   lastName: string;
+};
+
+
+type Conversation = {
+  id: number;
+  creator: User;
+  recipient: User;
 };

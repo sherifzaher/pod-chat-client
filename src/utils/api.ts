@@ -11,3 +11,5 @@ export const postLoginUser = async (data: UserCredentialsParams) =>
   axios.post(`${REACT_APP_API_URL}/auth/login`, data, config);
 
 export const getAuthUser = async () => axios.get(`${REACT_APP_API_URL}/auth/status`, config);
+
+export const getConversations = () => axios.get(`${REACT_APP_API_URL}/conversations`, config);
