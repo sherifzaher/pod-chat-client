@@ -193,7 +193,6 @@ export const MessageInput = styled.input`
   background-color: inherit;
   resize: none;
   outline: none;
-  border-radius: 10px;
   border: none;
   width: 100%;
   margin: 4px 0;
