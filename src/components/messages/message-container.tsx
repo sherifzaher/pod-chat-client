@@ -1,5 +1,7 @@
 import { formatRelative } from 'date-fns';
 import { useEffect } from 'react';
+import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 import {
   MessageContainerStyle,
   MessageItemAvatar,
@@ -9,6 +11,7 @@ import {
   MessageItemHeader
 } from "../../utils/styles";
 import {useAuthContext} from "../../context/auth-context";
+import {RootState} from "../../store";
 
 type Props = {
   messages: Message[];
@@ -43,6 +46,8 @@ export function FormattedMessage({ user, message }: FormattedMessageProps) {
 
 export default function MessageContainer({ messages }: Props) {
   const { user } = useAuthContext();
+  const { id } = useParams();
+  const messagesArray = useSelector((state:RootState) => state.conversations.conversations);
 
   const formatMessages = () =>
     messages.map((message, index, arr) => {

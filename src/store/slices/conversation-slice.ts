@@ -1,17 +1,26 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getConversations} from "../../utils/api";
+import {getConversationMessages, getConversations} from "../../utils/api";
 
 interface ConversationState {
-  conversations: Map<number, Conversation>;
+  conversations: Conversation[];
+  messages: FetchMessagePayload[];
+  loading: boolean;
 }
 
 const initialState: ConversationState = {
-  conversations: new Map(),
+  conversations: [],
+  messages: [],
+  loading: false,
 }
 
 export const fetchConversationsThunk = createAsyncThunk(
   'conversations/fetch',
   async () => getConversations(),
+);
+
+export const fetchMessagesThunk = createAsyncThunk(
+  "messages/fetch",
+  async (id: number) => getConversationMessages(id),
 )
 
 export const ConversationsSlice = createSlice({
@@ -24,9 +33,31 @@ export const ConversationsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchConversationsThunk.fulfilled, (state, action) => {
-      action.payload.data.forEach((conversation) => state.conversations.set(conversation.id, conversation));
-    })
+    builder
+      .addCase(fetchConversationsThunk.fulfilled, (state, action) => {
+        state.conversations = action.payload.data;
+        console.log(state.conversations);
+        state.loading = false;
+      })
+      .addCase(fetchConversationsThunk.pending, (state) => { state.loading = true })
+      .addCase(fetchConversationsThunk.rejected, (state) => { state.loading = false })
+      .addCase(fetchMessagesThunk.fulfilled, (state, action) => {
+        const { id, messages } = action.payload.data;
+        const index = state.conversations.findIndex((conv) => conv.id === id);
+        // const exists = state.conversations.find((conv) => conv.id === id);
+        if(index >= -1){
+          state.messages[index] = action.payload.data;
+        } else {
+          state.messages.push(action.payload.data)
+        }
+        state.loading = false;
+      })
+      .addCase(fetchMessagesThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMessagesThunk.rejected, (state) => {
+        state.loading = false;
+      })
   }
 });
 

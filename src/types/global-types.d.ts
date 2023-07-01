@@ -28,7 +28,7 @@ type Conversation = {
   creator: User;
   recipient: User;
   createdAt: string;
-  messages?: Message[];
+  messages: Message[];
 };
 
 type Message = {
@@ -37,6 +37,11 @@ type Message = {
   createdAt: string;
   author: User;
 };
+
+type FetchMessagePayload = {
+  id: number;
+  messages: Message[];
+}
 
 type MessageEventPayload = {
   id: number;

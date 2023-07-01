@@ -191,6 +191,10 @@ export const MessageInputContainer = styled.div`
   background-color: #101010;
   width: 100%;
   padding: 18px 32px;
+
+  & form {
+    width: 100%;
+  }
 `;
 
 export const MessageInput = styled.input`
@@ -211,6 +215,7 @@ export const MessageItemContainer = styled.div`
   gap: 20px;
   align-items: center;
   padding: 5px 0;
+  word-break: break-all;
 `;
 
 export const MessageItemAvatar = styled.div`
@@ -222,6 +227,7 @@ export const MessageItemAvatar = styled.div`
 
 export const MessageItemDetails = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

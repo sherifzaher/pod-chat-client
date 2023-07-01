@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 import { TbEdit } from 'react-icons/tb';
 
-
 import styles from './index.module.scss';
 import {useAuthContext} from "../../context/auth-context";
 import {RootState} from "../../store";
@@ -41,7 +40,7 @@ function ConversationSidebar() {
           </div>
         </ConversationSidebarHeader>
         <ConversationSidebarContainer>
-          {Array.from(conversations,([_,conversation]) => conversation).map((conversation) => (
+          {conversations.map((conversation) => (
             <ConversationSidebarItem
               key={conversation.id}
               onClick={() => navigate(`/conversations/${conversation.id}`)}
