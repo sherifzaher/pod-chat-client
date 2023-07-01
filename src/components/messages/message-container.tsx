@@ -44,10 +44,11 @@ export function FormattedMessage({ user, message }: FormattedMessageProps) {
   );
 }
 
-export default function MessageContainer({ messages }: Props) {
+export default function MessageContainer() {
   const { user } = useAuthContext();
   const { id } = useParams();
-  const messagesArray = useSelector((state:RootState) => state.conversations.conversations);
+  const messages = useSelector((state:RootState) => state.messages.messages).find((conv) => conv.id.toString() === id!)?.messages || [];
+
 
   const formatMessages = () =>
     messages.map((message, index, arr) => {
@@ -69,31 +70,10 @@ export default function MessageContainer({ messages }: Props) {
 
   useEffect(() => {
     formatMessages();
-  }, []);
+  }, [messages]);
   return (
     <MessageContainerStyle>
       {formatMessages()}
-      {/* {messages.map((message) => ( */}
-      {/*  <MessageItemContainer> */}
-      {/*    <MessageItemAvatar /> */}
-      {/*    <MessageItemDetails> */}
-      {/*      <MessageItemHeader> */}
-      {/*        <span */}
-      {/*          className="authorName" */}
-      {/*          style={{ */}
-      {/*            color: user?.id === message.author.id ? '#757575' : '#5E8BFF' */}
-      {/*          }} */}
-      {/*        > */}
-      {/*          {message.author.firstName} {" "} {message.author.lastName} */}
-      {/*        </span> */}
-      {/*        <span className="time">{formatRelative(new Date(message.createdAt), new Date())}</span> */}
-      {/*      </MessageItemHeader> */}
-      {/*      <MessageItemContent> */}
-      {/*        {message.content} */}
-      {/*      </MessageItemContent> */}
-      {/*    </MessageItemDetails> */}
-      {/*  </MessageItemContainer> */}
-      {/* ))} */}
     </MessageContainerStyle>
   );
 }

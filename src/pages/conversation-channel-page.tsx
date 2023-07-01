@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { useParams } from 'react-router-dom';
 
 import {useSocketContext} from "../context/socket-context";
-import {fetchMessagesThunk} from "../store/slices/conversation-slice";
+import {fetchMessagesThunk} from "../store/slices/messages-slice";
 import {AppDispatch, RootState} from "../store";
 
 import MessagePanel from "../components/messages/message-panel";
@@ -12,8 +12,8 @@ import {ConversationChannelPageStyle} from "../utils/styles";
 
 function ConversationChannelPage() {
   const { id } = useParams<{ id: string }>();
-  const [messages, setMessages] = useState<Message[]>([]);
-  // const messages = useSelector((state:RootState) => state.conversations.messages)
+  // const [messages, setMessages] = useState<Message[]>([]);
+  const messages = useSelector((state:RootState) => state.messages.messages).find((conv) => conv.id.toString() === id!)?.messages || [];
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSocketContext();
 
@@ -27,7 +27,7 @@ function ConversationChannelPage() {
     socket.on('connected', () => console.log('connected'));
     socket.on('onMessage', (payload: MessageEventPayload) => {
       const { conversation, ...message } = payload;
-      setMessages((prev) => [message, ...prev]);
+      // setMessages((prev) => [message, ...prev]);
     });
 
     // console.log("Try to connect");
@@ -39,7 +39,7 @@ function ConversationChannelPage() {
 
   return (
     <ConversationChannelPageStyle>
-      <MessagePanel messages={messages} />
+      <MessagePanel />
     </ConversationChannelPageStyle>
   );
 }

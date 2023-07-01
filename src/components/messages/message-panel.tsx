@@ -7,12 +7,12 @@ type Props = {
   messages: Message[];
 };
 
-export default function MessagePanel({ messages }: Props) {
+export default function MessagePanel() {
   return (
     <MessagePanelStyle>
       <MessagePanelHeader />
       <MessagePanelBody>
-        <MessageContainer messages={messages} />
+        <MessageContainer />
         <MessageInputField />
       </MessagePanelBody>
     </MessagePanelStyle>
