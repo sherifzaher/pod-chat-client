@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Button, InputContainer, InputField, InputLabel } from '@/utils/styles';
-import { postLoginUser } from '@/utils/api';
 
 import styles from './index.module.scss';
+import {postLoginUser} from "../../utils/api";
+import {Button, InputContainer, InputField, InputLabel} from "../../utils/styles";
 
 function RegisterForm() {
   const {

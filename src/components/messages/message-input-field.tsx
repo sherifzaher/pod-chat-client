@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
-import { MessageInputContainer, MessageInput } from '@/utils/styles';
 import {useParams} from "react-router-dom";
-import {postNewMessage} from "@/utils/api";
+import {postNewMessage} from "../../utils/api";
+import {MessageInput, MessageInputContainer} from "../../utils/styles";
 
 type Props = {
   content: string;

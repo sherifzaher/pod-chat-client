@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ConversationChannelPageStyle } from '@/utils/styles';
-import { getConversationMessages } from '@/utils/api';
-import MessagePanel from '@/components/messages/message-panel';
-import { useSocketContext } from '@/context/socket-context';
+import {useSocketContext} from "../context/socket-context";
+import {getConversationMessages} from "../utils/api";
+import {ConversationChannelPageStyle} from "../utils/styles";
+import MessagePanel from "../components/messages/message-panel";
 
 function ConversationChannelPage() {
   const { id } = useParams<{ id: string }>();

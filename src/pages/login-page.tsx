@@ -1,5 +1,5 @@
-import { Page } from '@/utils/styles';
-import LoginForm from '@/components/forms/login-form';
+import {Page} from "../utils/styles";
+import LoginForm from "../components/forms/login-form";
 
 function LoginPage() {
   return (

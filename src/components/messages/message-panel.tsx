@@ -1,10 +1,7 @@
-import { MessagePanelBody, MessagePanelStyle } from '@/utils/styles';
-import MessageContainer from '@/components/messages/message-container';
-import MessageInputField from '@/components/messages/message-input-field';
-import MessagePanelHeader from '@/components/messages/message-panel-header';
-import React, {useCallback, useState} from "react";
-import {useParams} from "react-router-dom";
-import {postNewMessage} from "@/utils/api";
+import {MessagePanelBody, MessagePanelStyle} from "../../utils/styles";
+import MessagePanelHeader from "./message-panel-header";
+import MessageContainer from "./message-container";
+import MessageInputField from "./message-input-field";
 
 type Props = {
   messages: Message[];

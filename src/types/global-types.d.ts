@@ -28,6 +28,7 @@ type Conversation = {
   creator: User;
   recipient: User;
   createdAt: string;
+  messages?: Message[];
 };
 
 type Message = {

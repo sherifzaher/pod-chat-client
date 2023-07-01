@@ -1,24 +1,27 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+
 import { TbEdit } from 'react-icons/tb';
-import CreateConversationModal from '@/components/modals/create-conversation-modal';
+
+
+import styles from './index.module.scss';
+import {useAuthContext} from "../../context/auth-context";
+import {RootState} from "../../store";
+import CreateConversationModal from "../modals/create-conversation-modal";
 import {
   ConversationSidebarContainer,
   ConversationSidebarHeader,
   ConversationSidebarItem,
   ConversationSidebarStyle
-} from '@/utils/styles';
-import { useAuthContext } from '@/context/auth-context';
-import styles from './index.module.scss';
+} from "../../utils/styles";
 
-type Props = {
-  conversations: Conversation[];
-};
-
-function ConversationSidebar({ conversations }: Props) {
+function ConversationSidebar() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const conversations = useSelector((state: RootState) => state.conversations.conversations);
+  const dispatch = useDispatch();
 
   const getDisplayUser = useCallback(
     (conversation: Conversation) =>
@@ -38,7 +41,7 @@ function ConversationSidebar({ conversations }: Props) {
           </div>
         </ConversationSidebarHeader>
         <ConversationSidebarContainer>
-          {conversations.map((conversation) => (
+          {Array.from(conversations,([_,conversation]) => conversation).map((conversation) => (
             <ConversationSidebarItem
               key={conversation.id}
               onClick={() => navigate(`/conversations/${conversation.id}`)}

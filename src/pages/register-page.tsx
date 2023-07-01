@@ -1,5 +1,5 @@
-import RegisterForm from '@/components/forms/register-form';
-import { Page } from '@/utils/styles';
+import {Page} from "../utils/styles";
+import RegisterForm from "../components/forms/register-form";
 
 function RegisterPage() {
   return (

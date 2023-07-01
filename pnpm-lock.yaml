@@ -37,6 +37,9 @@ dependencies:
   eslint-config-airbnb-typescript:
     specifier: ^17.0.0
     version: 17.0.0(@typescript-eslint/eslint-plugin@5.60.0)(@typescript-eslint/parser@5.60.0)(eslint-plugin-import@2.27.5)(eslint@8.43.0)
+  immer:
+    specifier: 9.0.21
+    version: 9.0.21
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -50,7 +53,7 @@ dependencies:
     specifier: ^4.10.1
     version: 4.10.1(react@18.2.0)
   react-redux:
-    specifier: ^8.1.1
+    specifier: ^8.0.2
     version: 8.1.1(@types/react-dom@18.2.6)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
   react-router-dom:
     specifier: ^6.14.0

@@ -1,4 +1,5 @@
 import { formatRelative } from 'date-fns';
+import { useEffect } from 'react';
 import {
   MessageContainerStyle,
   MessageItemAvatar,
@@ -6,9 +7,8 @@ import {
   MessageItemContent,
   MessageItemDetails,
   MessageItemHeader
-} from '@/utils/styles';
-import { useAuthContext } from '@/context/auth-context';
-import { useEffect } from 'react';
+} from "../../utils/styles";
+import {useAuthContext} from "../../context/auth-context";
 
 type Props = {
   messages: Message[];

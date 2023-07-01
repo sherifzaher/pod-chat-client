@@ -1,12 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
+import { enableMapSet } from "immer";
 
-import RegisterPage from '@/pages/register-page';
-import LoginPage from '@/pages/login-page';
-import ConversationChannelPage from '@/pages/conversation-channel-page';
-import ConversationsPage from '@/pages/conversation-page';
+import AppWithProviders from "./components/app-with-providers";
+import AuthenticatedRoutes from "./components/authenticated-routes";
 
-import AuthenticatedRoutes from '@/components/authenticated-routes';
-import AppWithProviders from "@/components/app-with-providers";
+import LoginPage from "./pages/login-page";
+import RegisterPage from "./pages/register-page";
+import ConversationsPage from "./pages/conversation-page";
+import ConversationChannelPage from "./pages/conversation-channel-page";
+
+enableMapSet()
 
 function App() {
   return (
