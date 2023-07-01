@@ -1,6 +1,6 @@
-import {useDispatch} from "react-redux";
+import { useDispatch } from 'react-redux';
 import styles from './index.module.scss';
-import {Button, InputContainer, InputField, InputLabel, TextField} from "../../utils/styles";
+import { Button, InputContainer, InputField, InputLabel, TextField } from '../../utils/styles';
 
 export default function CreateConversationForm() {
   const dispatch = useDispatch();
@@ -19,10 +19,14 @@ export default function CreateConversationForm() {
           <TextField />
         </InputContainer>
       </section>
-      <Button onClick={(e) => {
-        e.preventDefault();
-        // dispatch(addConversation({ id:1,  }))
-      }}>Create Conversation</Button>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          // dispatch(addConversation({ id:1,  }))
+        }}
+      >
+        Create Conversation
+      </Button>
     </form>
   );
 }

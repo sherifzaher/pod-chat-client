@@ -41,7 +41,7 @@ type Message = {
 type FetchMessagePayload = {
   id: number;
   messages: Message[];
-}
+};
 
 type MessageEventPayload = {
   id: number;
@@ -54,4 +54,4 @@ type MessageEventPayload = {
 type CreateMessageParams = {
   content: string;
   conversationId: number;
-}
+};

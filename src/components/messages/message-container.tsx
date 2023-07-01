@@ -1,7 +1,7 @@
 import { formatRelative } from 'date-fns';
 import { useEffect } from 'react';
-import {useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   MessageContainerStyle,
   MessageItemAvatar,
@@ -9,9 +9,9 @@ import {
   MessageItemContent,
   MessageItemDetails,
   MessageItemHeader
-} from "../../utils/styles";
-import {useAuthContext} from "../../context/auth-context";
-import {RootState} from "../../store";
+} from '../../utils/styles';
+import { useAuthContext } from '../../context/auth-context';
+import { RootState } from '../../store';
 
 type Props = {
   messages: Message[];
@@ -47,8 +47,10 @@ export function FormattedMessage({ user, message }: FormattedMessageProps) {
 export default function MessageContainer() {
   const { user } = useAuthContext();
   const { id } = useParams();
-  const messages = useSelector((state:RootState) => state.messages.messages).find((conv) => conv.id.toString() === id!)?.messages || [];
-
+  const messages =
+    useSelector((state: RootState) => state.messages.messages).find(
+      (conv) => conv.id.toString() === id!
+    )?.messages || [];
 
   const formatMessages = () =>
     messages.map((message, index, arr) => {
@@ -71,9 +73,5 @@ export default function MessageContainer() {
   useEffect(() => {
     formatMessages();
   }, [messages]);
-  return (
-    <MessageContainerStyle>
-      {formatMessages()}
-    </MessageContainerStyle>
-  );
+  return <MessageContainerStyle>{formatMessages()}</MessageContainerStyle>;
 }

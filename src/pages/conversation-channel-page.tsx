@@ -1,26 +1,29 @@
 import { useEffect, useState } from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {useSocketContext} from "../context/socket-context";
-import {fetchMessagesThunk} from "../store/slices/messages-slice";
-import {AppDispatch, RootState} from "../store";
+import { useSocketContext } from '../context/socket-context';
+import { fetchMessagesThunk } from '../store/slices/messages-slice';
+import { AppDispatch, RootState } from '../store';
 
-import MessagePanel from "../components/messages/message-panel";
+import MessagePanel from '../components/messages/message-panel';
 
-import {ConversationChannelPageStyle} from "../utils/styles";
+import { ConversationChannelPageStyle } from '../utils/styles';
 
 function ConversationChannelPage() {
   const { id } = useParams<{ id: string }>();
   // const [messages, setMessages] = useState<Message[]>([]);
-  const messages = useSelector((state:RootState) => state.messages.messages).find((conv) => conv.id.toString() === id!)?.messages || [];
+  const messages =
+    useSelector((state: RootState) => state.messages.messages).find(
+      (conv) => conv.id.toString() === id!
+    )?.messages || [];
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSocketContext();
 
   useEffect(() => {
-    if(!id) return;
+    if (!id) return;
     dispatch(fetchMessagesThunk(Number(id)));
-  },[id])
+  }, [id]);
 
   useEffect(() => {
     // console.log(socket);

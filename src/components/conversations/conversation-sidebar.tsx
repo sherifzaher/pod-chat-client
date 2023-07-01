@@ -1,19 +1,19 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TbEdit } from 'react-icons/tb';
 
 import styles from './index.module.scss';
-import {useAuthContext} from "../../context/auth-context";
-import {RootState} from "../../store";
-import CreateConversationModal from "../modals/create-conversation-modal";
+import { useAuthContext } from '../../context/auth-context';
+import { RootState } from '../../store';
+import CreateConversationModal from '../modals/create-conversation-modal';
 import {
   ConversationSidebarContainer,
   ConversationSidebarHeader,
   ConversationSidebarItem,
   ConversationSidebarStyle
-} from "../../utils/styles";
+} from '../../utils/styles';
 
 function ConversationSidebar() {
   const [showModal, setShowModal] = useState(false);

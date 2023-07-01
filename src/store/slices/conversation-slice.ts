@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getConversationMessages, getConversations} from "../../utils/api";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getConversationMessages, getConversations } from '../../utils/api';
 
 interface ConversationState {
   conversations: Conversation[];
@@ -8,20 +8,19 @@ interface ConversationState {
 
 const initialState: ConversationState = {
   conversations: [],
-  loading: false,
-}
+  loading: false
+};
 
-export const fetchConversationsThunk = createAsyncThunk(
-  'conversations/fetch',
-  async () => getConversations(),
+export const fetchConversationsThunk = createAsyncThunk('conversations/fetch', async () =>
+  getConversations()
 );
 
 export const ConversationsSlice = createSlice({
   name: 'conversations',
   initialState,
   reducers: {
-    addConversation: (state, action:PayloadAction<Conversation>) => {
-      console.log("Add Conversation");
+    addConversation: (state, action: PayloadAction<Conversation>) => {
+      console.log('Add Conversation');
     }
   },
   extraReducers: (builder) => {
@@ -30,8 +29,12 @@ export const ConversationsSlice = createSlice({
         state.conversations = action.payload.data;
         state.loading = false;
       })
-      .addCase(fetchConversationsThunk.pending, (state) => { state.loading = true })
-      .addCase(fetchConversationsThunk.rejected, (state) => { state.loading = false })
+      .addCase(fetchConversationsThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchConversationsThunk.rejected, (state) => {
+        state.loading = false;
+      });
   }
 });
 
