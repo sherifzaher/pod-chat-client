@@ -8,24 +8,27 @@ import ConversationsPage from '@/pages/conversation-page';
 import AuthenticatedRoutes from '@/components/authenticated-routes';
 
 import { AuthProvider } from '@/context/auth-context';
+import { socket, SocketContext } from '@/context/socket-context';
 
 function App() {
   return (
     <AuthProvider>
-      <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="conversations"
-          element={
-            <AuthenticatedRoutes>
-              <ConversationsPage />
-            </AuthenticatedRoutes>
-          }
-        >
-          <Route path=":id" element={<ConversationChannelPage />} />
-        </Route>
-      </Routes>
+      <SocketContext.Provider value={socket}>
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="conversations"
+            element={
+              <AuthenticatedRoutes>
+                <ConversationsPage />
+              </AuthenticatedRoutes>
+            }
+          >
+            <Route path=":id" element={<ConversationChannelPage />} />
+          </Route>
+        </Routes>
+      </SocketContext.Provider>
     </AuthProvider>
   );
 }

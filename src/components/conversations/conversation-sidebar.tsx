@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TbEdit } from 'react-icons/tb';
 import CreateConversationModal from '@/components/modals/create-conversation-modal';
@@ -8,7 +8,7 @@ import {
   ConversationSidebarItem,
   ConversationSidebarStyle
 } from '@/utils/styles';
-import {useAuthContext} from "@/context/auth-context";
+import { useAuthContext } from '@/context/auth-context';
 import styles from './index.module.scss';
 
 type Props = {
@@ -19,10 +19,12 @@ function ConversationSidebar({ conversations }: Props) {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  
-  const getDisplayUser = useCallback((conversation: Conversation) => conversation.creator.id === user?.id
-      ? conversation.recipient
-      : conversation.creator, [conversations]);
+
+  const getDisplayUser = useCallback(
+    (conversation: Conversation) =>
+      conversation.creator.id === user?.id ? conversation.recipient : conversation.creator,
+    [conversations]
+  );
 
   return (
     <>
@@ -37,15 +39,16 @@ function ConversationSidebar({ conversations }: Props) {
         </ConversationSidebarHeader>
         <ConversationSidebarContainer>
           {conversations.map((conversation) => (
-            <ConversationSidebarItem key={conversation.id} onClick={() => navigate(`/conversations/${conversation.id}`)}>
+            <ConversationSidebarItem
+              key={conversation.id}
+              onClick={() => navigate(`/conversations/${conversation.id}`)}
+            >
               <div className={styles.conversationAvatar} />
               <div>
                 <span className={styles.conversationName}>
-                  {getDisplayUser(conversation).firstName}
-                  {" "}
-                  {getDisplayUser(conversation).lastName}
+                  {getDisplayUser(conversation).firstName} {getDisplayUser(conversation).lastName}
                 </span>
-                 <span className={styles.conversationLastMessage}>Sample Text</span>
+                <span className={styles.conversationLastMessage}>Sample Text</span>
               </div>
             </ConversationSidebarItem>
           ))}

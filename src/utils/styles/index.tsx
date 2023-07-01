@@ -161,13 +161,17 @@ export const TextField = styled.textarea`
 export const MessagePanelStyle = styled.div`
   background-color: inherit;
   height: 100%;
+  width: 100%;
   position: relative;
+  display: flex;
+  align-items: end;
 `;
 
 export const MessagePanelBody = styled.div`
-  height: 100%;
+  height: calc(100% - 100px);
   display: flex;
-  padding: 24px;
+  flex: 1;
+  padding: 0 24px 24px;
   flex-direction: column;
 `;
 
@@ -197,7 +201,8 @@ export const MessageInput = styled.input`
   width: 100%;
   margin: 4px 0;
   color: #454545;
-  font-family: "Inter", BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 18px;
 `;
 
@@ -220,13 +225,14 @@ export const MessageItemDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
 `;
 
 export const MessageItemHeader = styled.div`
   display: flex;
   gap: 12px;
   .time {
-    color: #6D6D6D;
+    color: #6d6d6d;
     font-size: 12px;
     font-weight: bold;
   }

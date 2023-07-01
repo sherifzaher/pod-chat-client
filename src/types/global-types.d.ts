@@ -23,11 +23,11 @@ type User = {
   lastName: string;
 };
 
-
 type Conversation = {
   id: number;
   creator: User;
   recipient: User;
+  createdAt: string;
 };
 
 type Message = {
@@ -35,4 +35,17 @@ type Message = {
   content: string;
   createdAt: string;
   author: User;
+};
+
+type MessageEventPayload = {
+  id: number;
+  createdAt: string;
+  conversation: Conversation;
+  author: User;
+  content: string;
+};
+
+type CreateMessageParams = {
+  content: string;
+  conversationId: number;
 }
