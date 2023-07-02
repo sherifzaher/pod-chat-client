@@ -23,7 +23,8 @@
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
     "no-param-reassign": "off",
-    "@typescript-eslint/no-unused-expressions": "off"
+    "@typescript-eslint/no-unused-expressions": "off",
+    "no-useless-return": "off"
   },
   "settings": {
     "import/resolver": {

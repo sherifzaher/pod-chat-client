@@ -9,6 +9,7 @@ import { AppDispatch } from '../store';
 import MessagePanel from '../components/messages/message-panel';
 
 import { ConversationChannelPageStyle } from '../utils/styles';
+import {updateConversation} from "../store/slices/conversation-slice";
 
 function ConversationChannelPage() {
   const { id } = useParams<{ id: string }>();
@@ -23,14 +24,16 @@ function ConversationChannelPage() {
   useEffect(() => {
     socket.on('connected', () => console.log('connected'));
     socket.on('onMessage', (payload: MessageEventPayload) => {
+      const { conversation } = payload;
       dispatch(addMessage(payload));
+      dispatch(updateConversation(conversation));
     });
 
     return () => {
       socket.off('connected');
       socket.off('onMessage');
     };
-  }, [socket]);
+  }, [socket, dispatch]);
 
   return (
     <ConversationChannelPageStyle>

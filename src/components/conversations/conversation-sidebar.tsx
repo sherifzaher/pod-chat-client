@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { TbEdit } from 'react-icons/tb';
 
@@ -20,7 +20,6 @@ function ConversationSidebar() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const conversations = useSelector((state: RootState) => state.conversations.conversations);
-  const dispatch = useDispatch();
 
   const getDisplayUser = useCallback(
     (conversation: Conversation) =>
@@ -50,7 +49,7 @@ function ConversationSidebar() {
                 <span className={styles.conversationName}>
                   {getDisplayUser(conversation).firstName} {getDisplayUser(conversation).lastName}
                 </span>
-                <span className={styles.conversationLastMessage}>Sample Text</span>
+                <span className={styles.conversationLastMessage}>{conversation.lastMessageSent.content}</span>
               </div>
             </ConversationSidebarItem>
           ))}

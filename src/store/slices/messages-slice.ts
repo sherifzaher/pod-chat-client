@@ -20,10 +20,9 @@ export const MessagesSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action:PayloadAction<MessageEventPayload>) => {
-      const { conversation, ...message } = action.payload;
+      const { conversation, message } = action.payload;
       const conversationItem = state.messages.find((conv) => conv.id === conversation.id);
       conversationItem?.messages.unshift(message);
-      return state;
     }
   },
   extraReducers: (builder) => {
@@ -31,9 +30,7 @@ export const MessagesSlice = createSlice({
       .addCase(fetchMessagesThunk.fulfilled, (state, action) => {
         const { id, messages } = action.payload.data;
         const index = state.messages.findIndex((msg) => msg.id === id);
-        const exists = state.messages.at(index);
-
-        if (exists) {
+        if (index > -1) {
           state.messages[index] = action.payload.data;
         } else {
           state.messages.push(action.payload.data);
