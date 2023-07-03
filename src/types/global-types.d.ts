@@ -52,3 +52,8 @@ type CreateMessageParams = {
   content: string;
   conversationId: number;
 };
+
+type CreateConversationParams = {
+  email: string;
+  message: string;
+}

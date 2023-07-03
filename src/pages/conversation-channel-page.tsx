@@ -33,7 +33,7 @@ function ConversationChannelPage() {
       socket.off('connected');
       socket.off('onMessage');
     };
-  }, [socket, dispatch]);
+  }, [socket, dispatch, id]);
 
   return (
     <ConversationChannelPageStyle>

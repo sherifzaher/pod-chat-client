@@ -39,7 +39,7 @@ export default function CreateConversationModal({ setShowModal }: Props) {
           <MdClose size={32} onClick={() => setShowModal(false)} />
         </ModalHeader>
         <ModalContentBody>
-          <CreateConversationForm />
+          <CreateConversationForm closeModal={() => setShowModal(false)} />
         </ModalContentBody>
       </ModalContainer>
     </OverlayStyle>

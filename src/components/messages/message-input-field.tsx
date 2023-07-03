@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postNewMessage } from '../../utils/api';
 import { MessageInput, MessageInputContainer } from '../../utils/styles';
+import {useSocketContext} from "../../context/socket-context";
+import {useAuthContext} from "../../context/auth-context";
 
 type Props = {
   content: string;
@@ -11,6 +13,8 @@ type Props = {
 
 export default function MessageInputField() {
   const [content, setContent] = useState('');
+  const socket = useSocketContext();
+  const { user } = useAuthContext();
   const { id } = useParams();
 
   const handleSendMessage = useCallback(
@@ -26,10 +30,17 @@ export default function MessageInputField() {
     },
     [id, content]
   );
+
+  const handleSendTypingStatus = () => {
+    socket.emit('onUserTyping', {
+      conversationId: id,
+      sender: user?.id
+    })
+  }
   return (
     <MessageInputContainer>
       <form onSubmit={handleSendMessage}>
-        <MessageInput value={content} onChange={(e) => setContent(e.target.value)} />
+        <MessageInput onKeyDown={handleSendTypingStatus} value={content} onChange={(e) => setContent(e.target.value)} />
       </form>
     </MessageInputContainer>
   );
