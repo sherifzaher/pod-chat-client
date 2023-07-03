@@ -1,5 +1,6 @@
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import styles from './index.module.scss';
 import { Button, InputContainer, InputField, InputLabel, TextField } from '../../utils/styles';
 import {createConversationThunk} from "../../store/slices/conversation-slice";
@@ -11,6 +12,7 @@ type Props = {
 
 export default function CreateConversationForm({ closeModal }: Props) {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,10 +21,13 @@ export default function CreateConversationForm({ closeModal }: Props) {
     }
   } = useForm<CreateConversationParams>({});
 
-  const onSubmit = (data: CreateConversationParams) => {
-    dispatch(createConversationThunk(data))
+  const onSubmit = (conversationParams: CreateConversationParams) => {
+    dispatch(createConversationThunk(conversationParams))
       .unwrap()
-      .then(() => closeModal())
+      .then(({ data }) => {
+        closeModal();
+        navigate(`/conversations/${data.id}`)
+      })
       .catch((err) => console.log(err))
   }
 
