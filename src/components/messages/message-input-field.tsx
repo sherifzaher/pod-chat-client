@@ -22,7 +22,7 @@ export default function MessageInputField() {
       e.preventDefault();
       if (!id || !content) return;
       try {
-        await postNewMessage({ conversationId: Number(id), content });
+        await postNewMessage(Number(id),{ content });
         setContent('');
       } catch (err) {
         console.log(err);

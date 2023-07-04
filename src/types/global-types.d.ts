@@ -50,7 +50,6 @@ type MessageEventPayload = {
 
 type CreateMessageParams = {
   content: string;
-  conversationId: number;
 };
 
 type CreateConversationParams = {

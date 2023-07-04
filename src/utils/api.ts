@@ -15,10 +15,10 @@ export const getAuthUser = async () => axios.get(`${REACT_APP_API_URL}/auth/stat
 export const getConversations = () =>
   axios.get<Conversation[]>(`${REACT_APP_API_URL}/conversations`, config);
 
-export const getConversationMessages = (id: number) =>
-  axios.get<FetchMessagePayload>(`${REACT_APP_API_URL}/messages/${id}`);
+export const getConversationMessages = (conversationId: number) =>
+  axios.get<FetchMessagePayload>(`${REACT_APP_API_URL}/conversations/${conversationId}/messages`);
 
-export const postNewMessage = (content: CreateMessageParams) =>
-  axios.post(`${REACT_APP_API_URL}/messages`, content, config);
+export const postNewMessage = (conversationId: number, content: CreateMessageParams) =>
+  axios.post(`${REACT_APP_API_URL}/conversations/${conversationId}/messages`, content, config);
 
 export const postNewConversation = (data: CreateConversationParams) => axios.post<Conversation>(`${REACT_APP_API_URL}/conversations`, data, config);
