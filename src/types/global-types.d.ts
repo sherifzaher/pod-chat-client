@@ -56,3 +56,8 @@ type CreateConversationParams = {
   email: string;
   message: string;
 }
+
+type DeleteMessageParams = {
+  conversationId: number;
+  messageId: number;
+}

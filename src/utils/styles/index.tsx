@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {ContextMenuProps, InputContainerProps, MessageItemContentProps, PageProps} from "../../types/style-types";
 
 export const SIDEBAR_WIDTH = 400;
 
@@ -265,3 +266,28 @@ export const MessagePanelHeaderStyle = styled.header`
   top: 0;
   left: 0;
 `;
+
+export const ContextMenuStyles = styled.div<ContextMenuProps>`
+  border-radius: 8px;
+  position: fixed;
+  width: 200px;
+  background-color: #252525;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  ul li {
+    padding: 14px 16px;
+    border-radius: 8px;
+  }
+  
+  ul li:hover {
+    cursor: pointer;
+    background-color: #1f1f1f;
+  }
+`
