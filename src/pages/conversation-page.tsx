@@ -6,7 +6,7 @@ import {addConversation, fetchConversationsThunk, updateConversation} from '../s
 import { Page } from '../utils/styles';
 import ConversationSidebar from '../components/conversations/conversation-sidebar';
 import ConversationPanel from '../components/conversations/conversation-panel';
-import {addMessage} from "../store/slices/messages-slice";
+import {addMessage, deleteMessage} from "../store/slices/messages-slice";
 import {useSocketContext} from "../context/socket-context";
 
 function ConversationsPage() {
@@ -30,10 +30,15 @@ function ConversationsPage() {
       dispatch(addConversation(payload));
     })
 
+    socket.on('onMessageDelete', (payload: DeleteMessageResponse) => {
+      dispatch(deleteMessage(payload));
+    });
+
     return () => {
       socket.off('connected');
       socket.off('onMessage');
       socket.off('onConversation');
+      socket.off('onMessageDelete');
     };
   }, [socket, dispatch, id]);
 

@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {ContextMenuStyles} from "../../utils/styles";
 import {useMessageContextMenu} from "../../context/message-menu-context";
-import {deleteMessageThunk} from "../../store/slices/messages-slice";
+import {deleteMessage, deleteMessageThunk} from "../../store/slices/messages-slice";
 import {AppDispatch} from "../../store";
 import {useAuthContext} from "../../context/auth-context";
 
@@ -16,7 +16,7 @@ export default function SelectedMessageContextMenu({points}:Props){
   
   const dispatch = useDispatch<AppDispatch>();
 
-  const deleteMessage = async () => {
+  const handleDeleteMessage = async () => {
     if (!message || !id) return;
     const conversationId = Number(id!);
     console.log(`Deleting Message ${message?.id}`);
@@ -26,7 +26,7 @@ export default function SelectedMessageContextMenu({points}:Props){
       <ContextMenuStyles top={points.y} left={points.x}>
         <ul>
           {message?.author.id === user?.id && (
-            <li onClick={deleteMessage}>Delete</li>
+            <li onClick={handleDeleteMessage}>Delete</li>
           )}
           {message?.author.id === user?.id && (
             <li>Edit</li>

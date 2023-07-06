@@ -53,9 +53,11 @@ export default function MessageContainer() {
   const [showMenu, setShowMenu] = useState(false);
   const [points, setPoints] = useState({x:0, y:0 });
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+
   const memoizedValues = useMemo(() => ({message: selectedMessage, setMessage: setSelectedMessage}), [setSelectedMessage, selectedMessage])
   const { user } = useAuthContext();
   const { id } = useParams();
+
   const messages =
     useSelector((state: RootState) => state.messages.messages).find(
       (conv) => conv.id.toString() === id!

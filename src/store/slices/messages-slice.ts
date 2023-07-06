@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {deleteMessage, getConversationMessages} from '../../utils/api';
+import {deleteMessage as deleteMessageApi, getConversationMessages} from '../../utils/api';
 
 export interface MessagesState {
   messages: FetchMessagePayload[];
@@ -17,7 +17,7 @@ export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (id: number
 
 export const deleteMessageThunk = createAsyncThunk(
   'messages/delete',
-  (params: DeleteMessageParams) => deleteMessage(params)
+  (params: DeleteMessageParams) => deleteMessageApi(params)
 )
 
 export const MessagesSlice = createSlice({
@@ -29,8 +29,16 @@ export const MessagesSlice = createSlice({
       const conversationItem = state.messages.find((conv) => conv.id === conversation.id);
       conversationItem?.messages.unshift(message);
     },
-    deleteMessage: (state, action) => {
+    deleteMessage: (state, action: PayloadAction<DeleteMessageResponse>) => {
+      const { conversationId, messageId } = action.payload;
+      const conversationMessages = state.messages.find(
+        (cm) => cm.id === conversationId
+      );
 
+      const messageIndex = conversationMessages?.messages.findIndex(m => m.id === messageId)!;
+      if (messageIndex > -1){
+        conversationMessages?.messages.splice(messageIndex, 1);
+      }
     }
   },
   extraReducers: (builder) => {
@@ -50,9 +58,20 @@ export const MessagesSlice = createSlice({
       })
       .addCase(fetchMessagesThunk.rejected, (state, action) => {
         state.loading = false;
-      });
+      })
+      .addCase(deleteMessageThunk.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        const conversationMessages = state.messages.find(
+          (cm) => cm.id === data.conversationId
+        );
+
+        const messageIndex = conversationMessages?.messages.findIndex(m => m.id === data.messageId)!;
+        if (messageIndex > -1){
+          conversationMessages?.messages.splice(messageIndex, 1);
+        }
+      })
   }
 });
 
-export const { addMessage } = MessagesSlice.actions;
+export const { addMessage, deleteMessage } = MessagesSlice.actions;
 export default MessagesSlice.reducer;
