@@ -1,14 +1,14 @@
-import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
 import { Button, InputContainer, InputField, InputLabel, TextField } from '../../utils/styles';
-import {createConversationThunk} from "../../store/slices/conversation-slice";
-import {AppDispatch} from "../../store";
+import { createConversationThunk } from '../../store/slices/conversation-slice';
+import { AppDispatch } from '../../store';
 
 type Props = {
   closeModal: () => void;
-}
+};
 
 export default function CreateConversationForm({ closeModal }: Props) {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,9 +16,7 @@ export default function CreateConversationForm({ closeModal }: Props) {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors
-    }
+    formState: { errors }
   } = useForm<CreateConversationParams>({});
 
   const onSubmit = (conversationParams: CreateConversationParams) => {
@@ -26,16 +24,13 @@ export default function CreateConversationForm({ closeModal }: Props) {
       .unwrap()
       .then(({ data }) => {
         closeModal();
-        navigate(`/conversations/${data.id}`)
+        navigate(`/conversations/${data.id}`);
       })
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <form
-      className={styles.createConversationForm}
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className={styles.createConversationForm} onSubmit={handleSubmit(onSubmit)}>
       <section>
         <InputContainer backgroundColor="#161616">
           <InputLabel>Recipient</InputLabel>
@@ -48,9 +43,7 @@ export default function CreateConversationForm({ closeModal }: Props) {
           <TextField {...register('message')} />
         </InputContainer>
       </section>
-      <Button type="submit">
-        Create Conversation
-      </Button>
+      <Button type="submit">Create Conversation</Button>
     </form>
   );
 }

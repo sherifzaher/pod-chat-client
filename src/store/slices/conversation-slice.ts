@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {getConversationMessages, getConversations, postNewConversation} from '../../utils/api';
+import { getConversationMessages, getConversations, postNewConversation } from '../../utils/api';
 
 interface ConversationState {
   conversations: Conversation[];
@@ -16,9 +16,9 @@ export const fetchConversationsThunk = createAsyncThunk('conversations/fetch', a
 );
 
 export const createConversationThunk = createAsyncThunk(
-  "conversations/create",
-  (data: CreateConversationParams) => postNewConversation(data),
-)
+  'conversations/create',
+  (data: CreateConversationParams) => postNewConversation(data)
+);
 
 export const ConversationsSlice = createSlice({
   name: 'conversations',
@@ -55,7 +55,7 @@ export const ConversationsSlice = createSlice({
       })
       .addCase(createConversationThunk.rejected, (state) => {
         state.loading = false;
-      })
+      });
   }
 });
 

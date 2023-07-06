@@ -49,7 +49,9 @@ function ConversationSidebar() {
                 <span className={styles.conversationName}>
                   {getDisplayUser(conversation).firstName} {getDisplayUser(conversation).lastName}
                 </span>
-                <span className={styles.conversationLastMessage}>{conversation.lastMessageSent?.content}</span>
+                <span className={styles.conversationLastMessage}>
+                  {conversation.lastMessageSent?.content}
+                </span>
               </div>
             </ConversationSidebarItem>
           ))}

@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {deleteMessage as deleteMessageApi, getConversationMessages} from '../../utils/api';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { deleteMessage as deleteMessageApi, getConversationMessages } from '../../utils/api';
 
 export interface MessagesState {
   messages: FetchMessagePayload[];
@@ -18,25 +18,23 @@ export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (id: number
 export const deleteMessageThunk = createAsyncThunk(
   'messages/delete',
   (params: DeleteMessageParams) => deleteMessageApi(params)
-)
+);
 
 export const MessagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addMessage: (state, action:PayloadAction<MessageEventPayload>) => {
+    addMessage: (state, action: PayloadAction<MessageEventPayload>) => {
       const { conversation, message } = action.payload;
       const conversationItem = state.messages.find((conv) => conv.id === conversation.id);
       conversationItem?.messages.unshift(message);
     },
     deleteMessage: (state, action: PayloadAction<DeleteMessageResponse>) => {
       const { conversationId, messageId } = action.payload;
-      const conversationMessages = state.messages.find(
-        (cm) => cm.id === conversationId
-      );
+      const conversationMessages = state.messages.find((cm) => cm.id === conversationId);
 
-      const messageIndex = conversationMessages?.messages.findIndex(m => m.id === messageId)!;
-      if (messageIndex > -1){
+      const messageIndex = conversationMessages?.messages.findIndex((m) => m.id === messageId)!;
+      if (messageIndex > -1) {
         conversationMessages?.messages.splice(messageIndex, 1);
       }
     }
@@ -61,15 +59,15 @@ export const MessagesSlice = createSlice({
       })
       .addCase(deleteMessageThunk.fulfilled, (state, action) => {
         const { data } = action.payload;
-        const conversationMessages = state.messages.find(
-          (cm) => cm.id === data.conversationId
-        );
+        const conversationMessages = state.messages.find((cm) => cm.id === data.conversationId);
 
-        const messageIndex = conversationMessages?.messages.findIndex(m => m.id === data.messageId)!;
-        if (messageIndex > -1){
+        const messageIndex = conversationMessages?.messages.findIndex(
+          (m) => m.id === data.messageId
+        )!;
+        if (messageIndex > -1) {
           conversationMessages?.messages.splice(messageIndex, 1);
         }
-      })
+      });
   }
 });
 

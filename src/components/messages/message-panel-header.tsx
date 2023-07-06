@@ -1,9 +1,9 @@
-import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {useCallback, useEffect, useState} from "react";
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useCallback, useEffect, useState } from 'react';
 import { MessagePanelHeaderStyle } from '../../utils/styles';
-import {useAuthContext} from "../../context/auth-context";
-import {RootState} from "../../store";
+import { useAuthContext } from '../../context/auth-context';
+import { RootState } from '../../store';
 
 export default function MessagePanelHeader() {
   const { id } = useParams();
@@ -12,20 +12,19 @@ export default function MessagePanelHeader() {
   const [conversation, setConversation] = useState<Conversation>();
 
   useEffect(() => {
-    if(!id) return;
+    if (!id) return;
     const conversationId = Number(id);
     const conv = conversations.find((innerConv) => innerConv.id === conversationId);
     setConversation(conv);
-  }, [conversations,id]);
-  
-  const getDisplayName = useCallback(() => user?.id === conversation?.creator.id
-      ? `${conversation?.recipient?.firstName} ${conversation?.recipient?.lastName}`
-      : `${conversation?.creator?.firstName} ${conversation?.creator?.lastName}` ,[conversation]);
+  }, [conversations, id]);
 
-
-  return (
-    <MessagePanelHeaderStyle>
-      {getDisplayName()}
-    </MessagePanelHeaderStyle>
+  const getDisplayName = useCallback(
+    () =>
+      user?.id === conversation?.creator.id
+        ? `${conversation?.recipient?.firstName} ${conversation?.recipient?.lastName}`
+        : `${conversation?.creator?.firstName} ${conversation?.creator?.lastName}`,
+    [conversation]
   );
+
+  return <MessagePanelHeaderStyle>{getDisplayName()}</MessagePanelHeaderStyle>;
 }

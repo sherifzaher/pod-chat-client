@@ -2,12 +2,16 @@ import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
-import {addConversation, fetchConversationsThunk, updateConversation} from '../store/slices/conversation-slice';
+import {
+  addConversation,
+  fetchConversationsThunk,
+  updateConversation
+} from '../store/slices/conversation-slice';
 import { Page } from '../utils/styles';
 import ConversationSidebar from '../components/conversations/conversation-sidebar';
 import ConversationPanel from '../components/conversations/conversation-panel';
-import {addMessage, deleteMessage} from "../store/slices/messages-slice";
-import {useSocketContext} from "../context/socket-context";
+import { addMessage, deleteMessage } from '../store/slices/messages-slice';
+import { useSocketContext } from '../context/socket-context';
 
 function ConversationsPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,7 +32,7 @@ function ConversationsPage() {
 
     socket.on('onConversation', (payload: Conversation) => {
       dispatch(addConversation(payload));
-    })
+    });
 
     socket.on('onMessageDelete', (payload: DeleteMessageResponse) => {
       dispatch(deleteMessage(payload));

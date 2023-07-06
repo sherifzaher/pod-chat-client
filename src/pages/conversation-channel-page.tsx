@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {fetchMessagesThunk} from '../store/slices/messages-slice';
+import { fetchMessagesThunk } from '../store/slices/messages-slice';
 import { AppDispatch } from '../store';
 
 import MessagePanel from '../components/messages/message-panel';

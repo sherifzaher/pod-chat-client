@@ -1,5 +1,5 @@
 import { formatRelative } from 'date-fns';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -13,8 +13,8 @@ import {
 } from '../../utils/styles';
 import { useAuthContext } from '../../context/auth-context';
 import { RootState } from '../../store';
-import {MessageMenuContext} from "../../context/message-menu-context";
-import SelectedMessageContextMenu from "../context-menus/selected-message-context-menu";
+import { MessageMenuContext } from '../../context/message-menu-context';
+import SelectedMessageContextMenu from '../context-menus/selected-message-context-menu';
 
 type Props = {
   messages: Message[];
@@ -27,7 +27,6 @@ type FormattedMessageProps = {
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 export function FormattedMessage({ user, message, onContextMenu }: FormattedMessageProps) {
-
   return (
     <MessageItemContainer onContextMenu={onContextMenu}>
       <MessageItemAvatar />
@@ -51,10 +50,13 @@ export function FormattedMessage({ user, message, onContextMenu }: FormattedMess
 
 export default function MessageContainer() {
   const [showMenu, setShowMenu] = useState(false);
-  const [points, setPoints] = useState({x:0, y:0 });
+  const [points, setPoints] = useState({ x: 0, y: 0 });
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
 
-  const memoizedValues = useMemo(() => ({message: selectedMessage, setMessage: setSelectedMessage}), [setSelectedMessage, selectedMessage])
+  const memoizedValues = useMemo(
+    () => ({ message: selectedMessage, setMessage: setSelectedMessage }),
+    [setSelectedMessage, selectedMessage]
+  );
   const { user } = useAuthContext();
   const { id } = useParams();
 
@@ -65,8 +67,8 @@ export default function MessageContainer() {
 
   const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, message: Message) => {
     e.preventDefault();
-    console.log("Hello from context menu");
-    setPoints({x: e.pageX, y:e.pageY});
+    console.log('Hello from context menu');
+    setPoints({ x: e.pageX, y: e.pageY });
     setShowMenu(true);
     setSelectedMessage(message);
   };
@@ -76,25 +78,42 @@ export default function MessageContainer() {
     window.addEventListener('click', handleClick);
 
     return () => window.removeEventListener('click', handleClick);
-  },[])
+  }, []);
 
-  const formatMessages = useCallback(() =>
-    messages.map((message, index, arr) => {
-      const nextIndex = index + 1;
-      const currentMessage = arr[index];
-      const nextMessage = arr[nextIndex];
-      if (arr.length === nextIndex) {
-        return <FormattedMessage onContextMenu={(e) => onContextMenu(e, message)} key={message.id} user={user} message={message} />;
-      }
-      if (currentMessage.author.id === nextMessage.author.id) {
+  const formatMessages = useCallback(
+    () =>
+      messages.map((message, index, arr) => {
+        const nextIndex = index + 1;
+        const currentMessage = arr[index];
+        const nextMessage = arr[nextIndex];
+        if (arr.length === nextIndex) {
+          return (
+            <FormattedMessage
+              onContextMenu={(e) => onContextMenu(e, message)}
+              key={message.id}
+              user={user}
+              message={message}
+            />
+          );
+        }
+        if (currentMessage.author.id === nextMessage.author.id) {
+          return (
+            <MessageItemContainer onContextMenu={(e) => onContextMenu(e, message)} key={message.id}>
+              <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
+            </MessageItemContainer>
+          );
+        }
         return (
-          <MessageItemContainer onContextMenu={(e) => onContextMenu(e, message)} key={message.id}>
-            <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
-          </MessageItemContainer>
+          <FormattedMessage
+            onContextMenu={(e) => onContextMenu(e, message)}
+            key={message.id}
+            user={user}
+            message={message}
+          />
         );
-      }
-      return <FormattedMessage onContextMenu={(e) => onContextMenu(e, message)} key={message.id} user={user} message={message} />;
-    }), [messages]);
+      }),
+    [messages]
+  );
 
   return (
     <MessageMenuContext.Provider value={memoizedValues}>

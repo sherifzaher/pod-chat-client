@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postNewMessage } from '../../utils/api';
 import { MessageInput, MessageInputContainer } from '../../utils/styles';
-import {useSocketContext} from "../../context/socket-context";
-import {useAuthContext} from "../../context/auth-context";
+import { useSocketContext } from '../../context/socket-context';
+import { useAuthContext } from '../../context/auth-context';
 
 type Props = {
   content: string;
@@ -22,7 +22,7 @@ export default function MessageInputField() {
       e.preventDefault();
       if (!id || !content) return;
       try {
-        await postNewMessage(Number(id),{ content });
+        await postNewMessage(Number(id), { content });
         setContent('');
       } catch (err) {
         console.log(err);
@@ -35,12 +35,16 @@ export default function MessageInputField() {
     socket.emit('onUserTyping', {
       conversationId: id,
       sender: user?.id
-    })
-  }
+    });
+  };
   return (
     <MessageInputContainer>
       <form onSubmit={handleSendMessage}>
-        <MessageInput onKeyDown={handleSendTypingStatus} value={content} onChange={(e) => setContent(e.target.value)} />
+        <MessageInput
+          onKeyDown={handleSendTypingStatus}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
       </form>
     </MessageInputContainer>
   );

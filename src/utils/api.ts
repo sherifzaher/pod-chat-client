@@ -21,6 +21,11 @@ export const getConversationMessages = (conversationId: number) =>
 export const postNewMessage = (conversationId: number, content: CreateMessageParams) =>
   axios.post(`${REACT_APP_API_URL}/conversations/${conversationId}/messages`, content, config);
 
-export const postNewConversation = (data: CreateConversationParams) => axios.post<Conversation>(`${REACT_APP_API_URL}/conversations`, data, config);
+export const postNewConversation = (data: CreateConversationParams) =>
+  axios.post<Conversation>(`${REACT_APP_API_URL}/conversations`, data, config);
 
-export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) => axios.delete<DeleteMessageResponse>(`${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`, config)
+export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) =>
+  axios.delete<DeleteMessageResponse>(
+    `${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`,
+    config
+  );

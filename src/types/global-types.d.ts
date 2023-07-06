@@ -55,14 +55,14 @@ type CreateMessageParams = {
 type CreateConversationParams = {
   email: string;
   message: string;
-}
+};
 
 type DeleteMessageParams = {
   conversationId: number;
   messageId: number;
-}
+};
 
 type DeleteMessageResponse = {
-  conversationId: number,
+  conversationId: number;
   messageId: number;
-}
+};
