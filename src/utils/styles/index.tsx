@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
   ContextMenuProps,
   InputContainerProps,
-  MessageItemContentProps,
+  MessageItemContentProps, MessageTypingStatusProps,
   PageProps
 } from '../../types/style-types';
 
@@ -176,9 +176,9 @@ export const MessagePanelStyle = styled.div`
 export const MessagePanelBody = styled.div`
   height: calc(100% - 100px);
   display: flex;
-  flex: 1;
-  padding: 0 24px 24px;
   flex-direction: column;
+  flex: 1;
+  padding: 0 24px 0;
 `;
 
 export const MessageContainerStyle = styled.div`
@@ -295,4 +295,13 @@ export const ContextMenuStyles = styled.div<ContextMenuProps>`
     cursor: pointer;
     background-color: #1f1f1f;
   }
+`;
+
+export const MessageTypingStatus = styled.div<MessageTypingStatusProps>`
+  width: 100%;
+  margin: 10px 0 10px 0;
+  font-size: 14px;
+  color: #a2a2a2;
+  transition: all 0.5s ease-in-out;
+  visibility: ${(props) => props.isRecipientTyping ? 'visible' : 'hidden'};
 `;

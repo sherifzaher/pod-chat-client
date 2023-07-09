@@ -13,6 +13,8 @@ type Props = {
 
 export default function MessageInputField() {
   const [content, setContent] = useState('');
+  const [typing, setTyping] = useState(false);
+  const [timer,setTimer] = useState<ReturnType<typeof setTimeout>>();
   const socket = useSocketContext();
   const { user } = useAuthContext();
   const { id } = useParams();
@@ -31,12 +33,27 @@ export default function MessageInputField() {
     [id, content]
   );
 
-  const handleSendTypingStatus = () => {
-    socket.emit('onUserTyping', {
-      conversationId: id,
-      sender: user?.id
-    });
-  };
+  const handleSendTypingStatus = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    const isChar = e.key.length === 1;
+    if (!isChar) return;
+    clearTimeout(timer);
+    if(!typing) {
+      console.log('user is typing');
+      socket.emit('onTypingStart', {
+        conversationId: id,
+        sender: user?.id
+      });
+      setTyping(true);
+    }
+    setTimer(setTimeout(() => {
+      console.log('user stopped typing');
+      socket.emit('onTypingStop', {
+        conversationId: id,
+        sender: user?.id
+      });
+      setTyping(false);
+    } , 500));
+  }, [typing, timer]);
   return (
     <MessageInputContainer>
       <form onSubmit={handleSendMessage}>

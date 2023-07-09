@@ -58,3 +58,7 @@ export type ContextMenuProps = Partial<{
   top: number;
   left: number;
 }>;
+
+export type MessageTypingStatusProps = {
+  isRecipientTyping: boolean;
+}
