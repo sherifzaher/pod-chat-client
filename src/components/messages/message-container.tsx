@@ -89,6 +89,7 @@ export default function MessageContainer() {
               isEditing={isEditing}
               selectedMessageEdit={selectedMessageEdit}
               onEditMessageChange={onEditMessageChange}
+              setIsEditing={setIsEditing}
             />
           );
         }
@@ -99,7 +100,7 @@ export default function MessageContainer() {
                 isEditing && message.id === selectedMessageEdit?.id
                 ? (
                     <MessageItemContent padding="0 0 0 70px">
-                      <EditMessageContainer selectedMessageEdit={selectedMessageEdit} onEditMessageChange={onEditMessageChange} />
+                      <EditMessageContainer setIsEditing={setIsEditing} selectedMessageEdit={selectedMessageEdit} onEditMessageChange={onEditMessageChange} />
                     </MessageItemContent>
                   )
                 : <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
@@ -116,6 +117,7 @@ export default function MessageContainer() {
             isEditing={isEditing}
             selectedMessageEdit={selectedMessageEdit}
             onEditMessageChange={onEditMessageChange}
+            setIsEditing={setIsEditing}
           />
         );
       }),

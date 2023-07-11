@@ -30,4 +30,4 @@ export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams
     config
   );
 
-export const editMessage = ({conversationId, messageId, content }: EditMessagePayload) => axios.patch(`${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config)
+export const editMessage = ({conversationId, messageId, content }: EditMessagePayload) => axios.patch<Message>(`${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config)

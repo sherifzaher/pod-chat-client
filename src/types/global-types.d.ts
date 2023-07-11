@@ -36,6 +36,7 @@ type Message = {
   content: string;
   createdAt: string;
   author: User;
+  conversation: Conversation;
 };
 
 type FetchMessagePayload = {

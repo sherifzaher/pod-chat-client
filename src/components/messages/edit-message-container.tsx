@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import {EditMessageActionsContainer, EditMessageInputField} from "../../utils/styles";
@@ -8,9 +8,10 @@ import {editMessageThunk} from "../../store/slices/messages-slice";
 type Props = {
   selectedMessageEdit: Message;
   onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function EditMessageContainer({ selectedMessageEdit, onEditMessageChange }: Props){
+export default function EditMessageContainer({ selectedMessageEdit, onEditMessageChange, setIsEditing }: Props){
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,7 +22,9 @@ export default function EditMessageContainer({ selectedMessageEdit, onEditMessag
       messageId: selectedMessageEdit.id,
       content: selectedMessageEdit.content
     }
-    dispatch(editMessageThunk(params));
+    dispatch(editMessageThunk(params))
+      .unwrap()
+      .then(() => setIsEditing(false))
   }
 
   return (

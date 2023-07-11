@@ -18,8 +18,9 @@ type FormattedMessageProps = {
   isEditing: boolean;
   selectedMessageEdit: Message | null;
   onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
-export default function FormattedMessage({ user, message, onContextMenu, isEditing, selectedMessageEdit, onEditMessageChange }: FormattedMessageProps) {
+export default function FormattedMessage({ user, message, onContextMenu, isEditing, selectedMessageEdit, onEditMessageChange, setIsEditing }: FormattedMessageProps) {
   return (
     <MessageItemContainer onContextMenu={onContextMenu}>
       <MessageItemAvatar />
@@ -40,7 +41,7 @@ export default function FormattedMessage({ user, message, onContextMenu, isEditi
           isEditing && message.id === selectedMessageEdit?.id
             ? (
               <MessageItemContent padding="0 0 0 2px">
-                <EditMessageContainer selectedMessageEdit={selectedMessageEdit} onEditMessageChange={onEditMessageChange} />
+                <EditMessageContainer setIsEditing={setIsEditing} selectedMessageEdit={selectedMessageEdit} onEditMessageChange={onEditMessageChange} />
               </MessageItemContent>
             )
             : <MessageItemContent padding="0 0 0 2px">{message.content}</MessageItemContent>

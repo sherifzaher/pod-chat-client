@@ -23,7 +23,7 @@ export default function MessagePanel({ isRecipientTyping }:Props) {
     return <h1>Loading...</h1>
   }
 
-  if (!id || !conversation || !user){
+  if (!id || !conversation){
     navigate('/conversations');
     return null;
   }
@@ -34,7 +34,7 @@ export default function MessagePanel({ isRecipientTyping }:Props) {
       <MessagePanelBody>
         <MessageContainer />
         <MessageInputField />
-        <MessageTypingStatus isRecipientTyping={isRecipientTyping}>{getRecipientFromConversation(conversation, user).email} is typing ...</MessageTypingStatus>
+        <MessageTypingStatus isRecipientTyping={isRecipientTyping}>{getRecipientFromConversation(conversation, user!).email} is typing ...</MessageTypingStatus>
       </MessagePanelBody>
     </MessagePanelStyle>
   );

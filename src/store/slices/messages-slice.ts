@@ -72,7 +72,22 @@ export const MessagesSlice = createSlice({
         if (messageIndex > -1) {
           conversationMessages?.messages.splice(messageIndex, 1);
         }
-      });
+      })
+      .addCase(editMessageThunk.fulfilled, (state, action) => {
+        console.log("editMessageThunk.fulfilled")
+        console.log(action.payload.data);
+
+        const { data: message } = action.payload;
+        const { id: conversationId } = message.conversation;
+
+        const conversationMessage = state.messages.find(cm => cm.id === conversationId);
+        if(!conversationMessage) return;
+
+        const messageIndex = conversationMessage.messages.findIndex((msg) => msg.id === message.id);
+        if (messageIndex < 0) return;
+
+        conversationMessage.messages[messageIndex] = message;
+      })
   }
 });
 
