@@ -29,3 +29,5 @@ export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams
     `${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`,
     config
   );
+
+export const editMessage = ({conversationId, messageId, content }: EditMessagePayload) => axios.patch(`${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config)

@@ -22,6 +22,7 @@ export default function MessagePanel({ isRecipientTyping }:Props) {
   if(loading) {
     return <h1>Loading...</h1>
   }
+
   if (!id || !conversation || !user){
     navigate('/conversations');
     return null;

@@ -66,3 +66,9 @@ type DeleteMessageResponse = {
   conversationId: number;
   messageId: number;
 };
+
+type EditMessagePayload = {
+  conversationId: number;
+  messageId: number;
+  content: string;
+}

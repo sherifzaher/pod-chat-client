@@ -256,6 +256,7 @@ export const MessageItemHeader = styled.div`
 
 export const MessageItemContent = styled.div<MessageItemContentProps>`
   padding: ${(props) => props.padding};
+  width: 100%;
 `;
 
 export const MessagePanelHeaderStyle = styled.header`
@@ -304,4 +305,24 @@ export const MessageTypingStatus = styled.div<MessageTypingStatusProps>`
   color: #a2a2a2;
   transition: all 0.5s ease-in-out;
   visibility: ${(props) => props.isRecipientTyping ? 'visible' : 'hidden'};
+`;
+
+export const EditMessageInputField = styled.input`
+  outline: none;
+  border: none;
+  background-color: #222222;
+  color: #fff;
+  border-radius: 5px;
+  font-family: "Inter";
+  font-size: 15px;
+  padding: 18px 22px;
+  margin: 4px 0;
+  width: 100%;
+`;
+
+export const EditMessageActionsContainer = styled.div`
+  font-size: 12px;
+  & span {
+    color: dodgerblue;
+  }
 `;

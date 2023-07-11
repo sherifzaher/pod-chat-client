@@ -1,61 +1,29 @@
-import { formatRelative } from 'date-fns';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
-  ContextMenuStyles,
   MessageContainerStyle,
-  MessageItemAvatar,
   MessageItemContainer,
   MessageItemContent,
-  MessageItemDetails,
-  MessageItemHeader
 } from '../../utils/styles';
 import { useAuthContext } from '../../context/auth-context';
 import { RootState } from '../../store';
 import { MessageMenuContext } from '../../context/message-menu-context';
 import SelectedMessageContextMenu from '../context-menus/selected-message-context-menu';
+import FormattedMessage from "./formatted-messages";
+import EditMessageContainer from "./edit-message-container";
 
-type Props = {
-  messages: Message[];
-};
-
-type FormattedMessageProps = {
-  // eslint-disable-next-line react/require-default-props
-  user?: User;
-  message: Message;
-  onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-};
-export function FormattedMessage({ user, message, onContextMenu }: FormattedMessageProps) {
-  return (
-    <MessageItemContainer onContextMenu={onContextMenu}>
-      <MessageItemAvatar />
-      <MessageItemDetails>
-        <MessageItemHeader>
-          <span
-            className="authorName"
-            style={{
-              color: user?.id === message.author.id ? '#757575' : '#5E8BFF'
-            }}
-          >
-            {message.author.firstName} {message.author.lastName}
-          </span>
-          <span className="time">{formatRelative(new Date(message.createdAt), new Date())}</span>
-        </MessageItemHeader>
-        <MessageItemContent>{message.content}</MessageItemContent>
-      </MessageItemDetails>
-    </MessageItemContainer>
-  );
-}
 
 export default function MessageContainer() {
   const [showMenu, setShowMenu] = useState(false);
   const [points, setPoints] = useState({ x: 0, y: 0 });
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
-
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedMessageEdit, setSelectedMessageEdit] = useState<Message | null>(null);
+  const [originalEditMessage, setOriginalEditMessage] = useState(selectedMessageEdit);
   const memoizedValues = useMemo(
-    () => ({ message: selectedMessage, setMessage: setSelectedMessage }),
-    [setSelectedMessage, selectedMessage]
+    () => ({ message: selectedMessage, setMessage: setSelectedMessage, selectedMessage, editMessage: selectedMessageEdit, setEditMessage: setSelectedMessageEdit }),
+    [setSelectedMessage, selectedMessage, selectedMessageEdit, setSelectedMessageEdit]
   );
   const { user } = useAuthContext();
   const { id } = useParams();
@@ -73,12 +41,37 @@ export default function MessageContainer() {
     setSelectedMessage(message);
   };
 
+  const onEditMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(!selectedMessageEdit) return;
+    setSelectedMessageEdit((prev) => prev && {...prev, content: e.target.value});
+    // if(selectedMessageEdit.content === originalEditMessage.content)
+  }
+
   useEffect(() => {
     const handleClick = () => setShowMenu(false);
     window.addEventListener('click', handleClick);
 
     return () => window.removeEventListener('click', handleClick);
   }, []);
+
+
+  useEffect(() => {
+    const handleKeyDown = (e:KeyboardEvent) => e.key === 'Escape' && setIsEditing(false);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [id])
+
+
+  // reset everything when component un-mounted
+  useEffect(() => {
+    return () => {
+      setSelectedMessage(null);
+      setSelectedMessageEdit(null);
+      setOriginalEditMessage(null);
+      setIsEditing(false);
+    }
+  },[id]);
 
   const formatMessages = useCallback(
     () =>
@@ -93,13 +86,24 @@ export default function MessageContainer() {
               key={message.id}
               user={user}
               message={message}
+              isEditing={isEditing}
+              selectedMessageEdit={selectedMessageEdit}
+              onEditMessageChange={onEditMessageChange}
             />
           );
         }
         if (currentMessage.author.id === nextMessage.author.id) {
           return (
             <MessageItemContainer onContextMenu={(e) => onContextMenu(e, message)} key={message.id}>
-              <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
+              {
+                isEditing && message.id === selectedMessageEdit?.id
+                ? (
+                    <MessageItemContent padding="0 0 0 70px">
+                      <EditMessageContainer selectedMessageEdit={selectedMessageEdit} onEditMessageChange={onEditMessageChange} />
+                    </MessageItemContent>
+                  )
+                : <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
+              }
             </MessageItemContainer>
           );
         }
@@ -109,17 +113,20 @@ export default function MessageContainer() {
             key={message.id}
             user={user}
             message={message}
+            isEditing={isEditing}
+            selectedMessageEdit={selectedMessageEdit}
+            onEditMessageChange={onEditMessageChange}
           />
         );
       }),
-    [messages]
+    [messages, isEditing, selectedMessage, selectedMessageEdit]
   );
 
   return (
     <MessageMenuContext.Provider value={memoizedValues}>
       <MessageContainerStyle>
         {formatMessages()}
-        {showMenu && <SelectedMessageContextMenu points={points} />}
+        {showMenu && <SelectedMessageContextMenu setIsEditing={setIsEditing} points={points} />}
       </MessageContainerStyle>
     </MessageMenuContext.Provider>
   );
