@@ -42,6 +42,17 @@ export const MessagesSlice = createSlice({
       if (messageIndex > -1) {
         conversationMessages?.messages.splice(messageIndex, 1);
       }
+    },
+    updateMessage: (state, action: PayloadAction<Message>) => {
+      const { id: messageId, conversation: { id: conversationId } } = action.payload;
+
+      const conversationMessage = state.messages.find((conv) => conv.id === conversationId);
+      if (!conversationMessage) return;
+
+      const messageIndex = conversationMessage.messages.findIndex((msg) => msg.id === messageId);
+      if (messageIndex < 0) return;
+
+      conversationMessage.messages[messageIndex] = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -91,5 +102,5 @@ export const MessagesSlice = createSlice({
   }
 });
 
-export const { addMessage, deleteMessage } = MessagesSlice.actions;
+export const { addMessage, deleteMessage, updateMessage } = MessagesSlice.actions;
 export default MessagesSlice.reducer;

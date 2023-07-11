@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import {useSocketContext} from "../context/socket-context";
-import { fetchMessagesThunk } from '../store/slices/messages-slice';
+import {fetchMessagesThunk, updateMessage} from '../store/slices/messages-slice';
 import { AppDispatch } from '../store';
 
 import MessagePanel from '../components/messages/message-panel';
@@ -43,6 +43,11 @@ function ConversationChannelPage() {
       setIsRecipientTyping(false);
     });
 
+    socket.on('onMessageUpdate',  (payload: Message) => {
+      console.log("onMessageUpdate");
+      dispatch(updateMessage(payload));
+    });
+
 
     return () => {
       socket.emit('onConversationLeave', { conversationId });
@@ -50,6 +55,7 @@ function ConversationChannelPage() {
       socket.off('userLeave');
       socket.off('onTypingStart');
       socket.off('onTypingStop');
+      socket.off('onMessageUpdate');
     }
 
   },[id,socket]);
