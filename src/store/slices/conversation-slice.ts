@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getConversationMessages, getConversations, postNewConversation } from '../../utils/api';
+import { getConversations, postNewConversation } from '../../utils/api';
 
 interface ConversationState {
   conversations: Conversation[];

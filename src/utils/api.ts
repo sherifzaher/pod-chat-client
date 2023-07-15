@@ -31,3 +31,5 @@ export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams
   );
 
 export const editMessage = ({conversationId, messageId, content }: EditMessagePayload) => axios.patch<Message>(`${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`, { content }, config)
+
+export const fetchGroups = () => axios.get<Group[]>(`${REACT_APP_API_URL}/groups`, config);

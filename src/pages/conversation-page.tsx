@@ -12,6 +12,7 @@ import ConversationSidebar from '../components/conversations/conversation-sideba
 import ConversationPanel from '../components/conversations/conversation-panel';
 import { addMessage, deleteMessage } from '../store/slices/messages-slice';
 import { useSocketContext } from '../context/socket-context';
+import {fetchGroupThunk} from "../store/slices/group-slice";
 
 function ConversationsPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +21,7 @@ function ConversationsPage() {
 
   useEffect(() => {
     dispatch(fetchConversationsThunk());
+    dispatch(fetchGroupThunk());
   }, []);
 
   useEffect(() => {

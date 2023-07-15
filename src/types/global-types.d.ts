@@ -73,3 +73,16 @@ type EditMessagePayload = {
   messageId: number;
   content: string;
 }
+
+type ConversationSelectedType = 'private' | 'group';
+
+type Group = {
+  id: number;
+  title?: string;
+  users: User[];
+  creator: User;
+  messages: Message[];
+  createdAt: number;
+  lastMessageSent: Message;
+  lastMessageSentAt: Date;
+}

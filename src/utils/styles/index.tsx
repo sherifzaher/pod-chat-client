@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {
-  ContextMenuProps,
+  ContextMenuProps, ConversationSelectedProps,
   InputContainerProps,
   MessageItemContentProps, MessageTypingStatusProps,
   PageProps
@@ -108,7 +108,7 @@ export const ConversationChannelPageStyle = styled.div`
 export const ConversationSidebarContainer = styled.div`
   margin-top: 100px;
 `;
-export const ConversationSidebarItem = styled.div`
+export const ConversationSidebarItemStyle = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
@@ -325,4 +325,25 @@ export const EditMessageActionsContainer = styled.div`
   & span {
     color: dodgerblue;
   }
+`;
+
+export const ConversationSelectedStyle = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  background-color: #141414;
+  border-bottom: 1px solid #0f0f0f;
+  padding: 20px 32px;
+`;
+
+export const ConversationSelectedItem = styled.div<ConversationSelectedProps>`
+  border: 0.15em solid #d3d3d3;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  ${(props) => props.selected && css`
+    background-color: #b1b1b1;
+    border: 0.15em solid #b1b1b1;
+    color: #292929;
+  `}
 `;

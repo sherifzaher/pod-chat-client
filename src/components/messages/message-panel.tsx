@@ -23,7 +23,7 @@ export default function MessagePanel({ isRecipientTyping }:Props) {
     return <h1>Loading...</h1>
   }
 
-  if (!id || !conversation){
+  if (!id || !conversation) {
     navigate('/conversations');
     return null;
   }
