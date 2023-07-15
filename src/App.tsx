@@ -8,6 +8,8 @@ import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
 import ConversationsPage from './pages/conversation-page';
 import ConversationChannelPage from './pages/conversation-channel-page';
+import GroupPage from "./pages/group/group-page";
+import GroupChannelPage from "./pages/group/group-channel-page";
 
 enableMapSet();
 
@@ -31,11 +33,11 @@ function App() {
           path="/groups"
           element={
             <AuthenticatedRoutes>
-              <ConversationsPage />
+              <GroupPage />
             </AuthenticatedRoutes>
           }
         >
-          <Route path=":id" element={<ConversationChannelPage />} />
+          <Route path=":id" element={<GroupChannelPage />} />
         </Route>
       </Routes>
     </AppWithProviders>

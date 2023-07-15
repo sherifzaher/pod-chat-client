@@ -337,13 +337,12 @@ export const ConversationSelectedStyle = styled.div`
 `;
 
 export const ConversationSelectedItem = styled.div<ConversationSelectedProps>`
-  border: 0.15em solid #d3d3d3;
   padding: 10px 24px;
-  border-radius: 20px;
+  border-radius: 10px;
+  background-color: #212121;
   font-size: 14px;
+  color: #f0f0f0;
   ${(props) => props.selected && css`
-    background-color: #b1b1b1;
-    border: 0.15em solid #b1b1b1;
-    color: #292929;
+    background-color: #444444;
   `}
 `;

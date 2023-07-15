@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import {Outlet, useParams} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
 import {
@@ -12,7 +12,7 @@ import ConversationSidebar from '../components/conversations/conversation-sideba
 import ConversationPanel from '../components/conversations/conversation-panel';
 import { addMessage, deleteMessage } from '../store/slices/messages-slice';
 import { useSocketContext } from '../context/socket-context';
-import {fetchGroupThunk} from "../store/slices/group-slice";
+import {updateType} from "../store/slices/selected-slice";
 
 function ConversationsPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,8 +20,8 @@ function ConversationsPage() {
   const { id } = useParams();
 
   useEffect(() => {
+    dispatch(updateType('private'))
     dispatch(fetchConversationsThunk());
-    dispatch(fetchGroupThunk());
   }, []);
 
   useEffect(() => {

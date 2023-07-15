@@ -15,18 +15,8 @@ type Props = {
 export default function MessagePanel({ isRecipientTyping }:Props) {
   const { id } = useParams();
   const { user } = useAuthContext();
-  const navigate = useNavigate();
   const { conversations, loading} = useSelector((state: RootState) => state.conversations);
   const conversation = conversations.find(conv => conv.id === Number(id!));
-
-  if(loading) {
-    return <h1>Loading...</h1>
-  }
-
-  if (!id || !conversation) {
-    navigate('/conversations');
-    return null;
-  }
 
   return (
     <MessagePanelStyle>
@@ -34,7 +24,7 @@ export default function MessagePanel({ isRecipientTyping }:Props) {
       <MessagePanelBody>
         <MessageContainer />
         <MessageInputField />
-        <MessageTypingStatus isRecipientTyping={isRecipientTyping}>{getRecipientFromConversation(conversation, user!).email} is typing ...</MessageTypingStatus>
+        <MessageTypingStatus isRecipientTyping={isRecipientTyping}>{isRecipientTyping && getRecipientFromConversation(conversation!, user!).firstName } is typing ...</MessageTypingStatus>
       </MessagePanelBody>
     </MessagePanelStyle>
   );
