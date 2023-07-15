@@ -6,8 +6,8 @@ import AuthenticatedRoutes from './components/authenticated-routes';
 
 import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
-import ConversationsPage from './pages/conversation-page';
-import ConversationChannelPage from './pages/conversation-channel-page';
+import ConversationsPage from './pages/conversations/conversation-page';
+import ConversationChannelPage from './pages/conversations/conversation-channel-page';
 import GroupPage from "./pages/group/group-page";
 import GroupChannelPage from "./pages/group/group-channel-page";
 

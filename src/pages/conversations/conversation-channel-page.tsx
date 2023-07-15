@@ -2,13 +2,13 @@ import {useEffect, useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {useSocketContext} from "../context/socket-context";
-import {fetchMessagesThunk, updateMessage} from '../store/slices/messages-slice';
-import { AppDispatch } from '../store';
+import {useSocketContext} from "../../context/socket-context";
+import {fetchMessagesThunk, updateMessage} from '../../store/slices/messages-slice';
+import { AppDispatch } from '../../store';
 
-import MessagePanel from '../components/messages/message-panel';
+import MessagePanel from '../../components/messages/message-panel';
 
-import { ConversationChannelPageStyle } from '../utils/styles';
+import { ConversationChannelPageStyle } from '../../utils/styles';
 
 function ConversationChannelPage() {
   const [isRecipientTyping, setIsRecipientTyping] = useState(false);

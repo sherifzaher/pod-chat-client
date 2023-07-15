@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 import {Outlet, useParams} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../store';
+import { AppDispatch } from '../../store';
 import {
   addConversation,
   fetchConversationsThunk,
   updateConversation
-} from '../store/slices/conversation-slice';
-import { Page } from '../utils/styles';
-import ConversationSidebar from '../components/conversations/conversation-sidebar';
-import ConversationPanel from '../components/conversations/conversation-panel';
-import { addMessage, deleteMessage } from '../store/slices/messages-slice';
-import { useSocketContext } from '../context/socket-context';
-import {updateType} from "../store/slices/selected-slice";
+} from '../../store/slices/conversation-slice';
+import { Page } from '../../utils/styles';
+import ConversationSidebar from '../../components/conversations/conversation-sidebar';
+import ConversationPanel from '../../components/conversations/conversation-panel';
+import { addMessage, deleteMessage } from '../../store/slices/messages-slice';
+import { useSocketContext } from '../../context/socket-context';
+import {updateType} from "../../store/slices/selected-slice";
 
 function ConversationsPage() {
   const dispatch = useDispatch<AppDispatch>();
