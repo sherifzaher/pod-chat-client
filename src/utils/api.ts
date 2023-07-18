@@ -30,3 +30,9 @@ export const editMessage = ({ conversationId, messageId, content }: EditMessageP
 );
 
 export const fetchGroups = () => axios.get<Group[]>(`${REACT_APP_API_URL}/groups`, config);
+
+export const fetchGroupMessages = (id: number) =>
+  axios.get<FetchGroupMessagePayload>(
+    `${REACT_APP_API_URL}/groups/${id}/messages`,
+    config
+  );

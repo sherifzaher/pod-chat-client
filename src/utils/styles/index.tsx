@@ -115,7 +115,6 @@ export const ConversationSidebarItemStyle = styled.div`
   align-items: center;
   gap: 20px;
   padding: 10px 32px;
-  background-color: #131313;
 `;
 
 export const OverlayStyle = styled.div`
