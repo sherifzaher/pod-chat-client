@@ -1,6 +1,8 @@
 import {createAsyncThunk, createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import { fetchGroupMessages as fetchGroupMessagesAPI } from '../../utils/api';
 import {RootState} from "../index";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchGroupMessages as fetchGroupMessagesAPI } from '../../utils/api';
 
 export interface GroupMessagesState {
   messages: GroupMessage[];
