@@ -110,7 +110,7 @@ const selectConversationMessagesById = (state: RootState, id: number) => id;
 
 export const selectConversationMessage = createSelector(
   [selectConversationMessages, selectConversationMessagesById],
-  (groupMessages, id) => groupMessages.find(gm => gm.id === id)
+  (messages, id) => messages.find(gm => gm.id === id)
 )
 
 export const { addMessage, deleteMessage, updateMessage } = MessagesSlice.actions;
