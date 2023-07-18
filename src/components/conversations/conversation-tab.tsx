@@ -1,17 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  ConversationTabItemStyle,
-  ConversationTabStyle,
-} from '../../utils/styles';
+import { ConversationTabItemStyle, ConversationTabStyle } from '../../utils/styles';
 import { chatTypes } from '../../utils/constants';
 import { RootState, AppDispatch } from '../../store';
 import { updateType } from '../../store/slices/selected-slice';
 
-export default function ConversationTab(){
-  const selectedType = useSelector(
-    (state: RootState) => state.selectedConversationType.type
-  );
+export default function ConversationTab() {
+  const selectedType = useSelector((state: RootState) => state.selectedConversationType.type);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const onSelectType = (chat: ConversationTypeData) => {
@@ -32,4 +27,4 @@ export default function ConversationTab(){
       ))}
     </ConversationTabStyle>
   );
-};
+}

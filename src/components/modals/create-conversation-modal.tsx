@@ -1,4 +1,6 @@
-import { createRef, Dispatch, SetStateAction, useCallback, useEffect } from 'react';
+import {
+  createRef, Dispatch, SetStateAction, useCallback, useEffect,
+} from 'react';
 import { MdClose } from 'react-icons/md';
 import { ModalContainer, ModalContentBody, ModalHeader } from './index';
 import { OverlayStyle } from '../../utils/styles';
@@ -12,14 +14,13 @@ export default function CreateConversationModal({ setShowModal }: Props) {
   const ref = createRef<HTMLDivElement>();
 
   useEffect(() => {
-    const handleKeyDown = (e: globalThis.KeyboardEvent) =>
-      e.key === 'Escape' && setShowModal(false);
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => e.key === 'Escape' && setShowModal(false);
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [setShowModal]);
 
   const handleOverlayClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -28,7 +29,7 @@ export default function CreateConversationModal({ setShowModal }: Props) {
         setShowModal(false);
       }
     },
-    [ref]
+    [ref, setShowModal],
   );
 
   return (

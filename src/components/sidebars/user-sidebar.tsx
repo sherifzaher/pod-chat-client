@@ -9,7 +9,7 @@ import {
 import styles from './index.module.scss';
 import avatar from '../../__assets__/avatar_1.png';
 
-export default function UserSidebar(){
+export default function UserSidebar() {
   return (
     <UserSidebarStyle>
       <UserSidebarTop>
@@ -25,4 +25,4 @@ export default function UserSidebar(){
       </UserSidebarBottom>
     </UserSidebarStyle>
   );
-};
+}

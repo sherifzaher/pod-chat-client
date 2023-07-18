@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import {Outlet, useParams} from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { Page } from '../../utils/styles';
@@ -7,12 +7,12 @@ import ConversationSidebar from '../../components/conversations/conversation-sid
 import ConversationPanel from '../../components/conversations/conversation-panel';
 
 import { AppDispatch } from '../../store';
-import {fetchGroupThunk} from "../../store/slices/group-slice";
-import {updateType} from "../../store/slices/selected-slice";
-import {addMessage} from "../../store/slices/messages-slice";
-import {updateConversation} from "../../store/slices/conversation-slice";
+import { fetchGroupThunk } from '../../store/slices/group-slice';
+import { updateType } from '../../store/slices/selected-slice';
+import { addMessage } from '../../store/slices/messages-slice';
+import { updateConversation } from '../../store/slices/conversation-slice';
 
-import {useSocketContext} from "../../context/socket-context";
+import { useSocketContext } from '../../context/socket-context';
 
 function GroupPage() {
   const { id } = useParams();
@@ -22,15 +22,15 @@ function GroupPage() {
   useEffect(() => {
     dispatch(updateType('group'));
     dispatch(fetchGroupThunk());
-  }, []);
+  }, [dispatch]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // socket.on('onMessage', (payload: MessageEventPayload) => {
     //   const { conversation } = payload;
     //   dispatch(addMessage(payload));
     //   dispatch(updateConversation(conversation));
     // });
-  },[id, socket])
+  }, [id, socket]);
 
   return (
     <Page>

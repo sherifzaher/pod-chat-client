@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {Dispatch, SetStateAction} from "react";
+import { Dispatch, SetStateAction } from 'react';
 import { ContextMenuStyles } from '../../utils/styles';
 import { useMessageContextMenu } from '../../context/message-menu-context';
 import { deleteMessageThunk } from '../../store/slices/messages-slice';
@@ -9,7 +9,7 @@ import { useAuthContext } from '../../context/auth-context';
 
 type Props = {
   points: { x: number; y: number };
-  setIsEditing: Dispatch<SetStateAction<boolean>>
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 export default function SelectedMessageContextMenu({ points, setIsEditing }: Props) {
   const { message, setEditMessage } = useMessageContextMenu();
@@ -29,7 +29,7 @@ export default function SelectedMessageContextMenu({ points, setIsEditing }: Pro
     setIsEditing(true);
     console.log(message);
     setEditMessage(message);
-  }
+  };
 
   return (
     <ContextMenuStyles top={points.y} left={points.x}>

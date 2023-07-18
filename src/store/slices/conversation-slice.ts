@@ -8,16 +8,14 @@ interface ConversationState {
 
 const initialState: ConversationState = {
   conversations: [],
-  loading: false
+  loading: false,
 };
 
-export const fetchConversationsThunk = createAsyncThunk('conversations/fetch', async () =>
-  getConversations()
-);
+export const fetchConversationsThunk = createAsyncThunk('conversations/fetch', async () => getConversations());
 
 export const createConversationThunk = createAsyncThunk(
   'conversations/create',
-  (data: CreateConversationParams) => postNewConversation(data)
+  (data: CreateConversationParams) => postNewConversation(data),
 );
 
 export const ConversationsSlice = createSlice({
@@ -32,7 +30,7 @@ export const ConversationsSlice = createSlice({
       const index = state.conversations.findIndex((c) => c.id === conversation.id);
       state.conversations.splice(index, 1);
       state.conversations.unshift(conversation);
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -56,7 +54,7 @@ export const ConversationsSlice = createSlice({
       .addCase(createConversationThunk.rejected, (state) => {
         state.loading = false;
       });
-  }
+  },
 });
 
 export const { addConversation, updateConversation } = ConversationsSlice.actions;

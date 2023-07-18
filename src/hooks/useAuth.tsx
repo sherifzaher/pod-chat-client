@@ -13,7 +13,7 @@ export function useAuth() {
       })
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [setUser]);
 
   return { user, isLoading };
 }

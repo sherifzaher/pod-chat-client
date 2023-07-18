@@ -8,15 +8,17 @@ import CreateConversationModal from '../modals/create-conversation-modal';
 import {
   ConversationSidebarContainer,
   ConversationSidebarHeader,
-  ConversationSidebarStyle
+  ConversationSidebarStyle,
 } from '../../utils/styles';
-import ConversationSelected from "./conversation-selected";
-import ConversationSidebarItem from "./conversation-sidebar-item";
-import GroupSidebarItem from "../groups/group-sidebar-item";
+import ConversationSelected from './conversation-selected';
+import ConversationSidebarItem from './conversation-sidebar-item';
+import GroupSidebarItem from '../groups/group-sidebar-item';
 
 function ConversationSidebar() {
   const [showModal, setShowModal] = useState(false);
-  const selectedConversationType = useSelector((state: RootState) => state.selectedConversationType.type);
+  const selectedConversationType = useSelector(
+    (state: RootState) => state.selectedConversationType.type,
+  );
 
   const conversations = useSelector((state: RootState) => state.conversations.conversations);
   const groups = useSelector((state: RootState) => state.groups.groups);
@@ -32,11 +34,12 @@ function ConversationSidebar() {
           </div>
         </ConversationSidebarHeader>
         <ConversationSidebarContainer>
-        <ConversationSelected />
+          <ConversationSelected />
           {selectedConversationType === 'private'
-            ? conversations.map((conversation) => ( <ConversationSidebarItem conversation={conversation} key={conversation.id} /> ))
-            : groups.map((group) => (<GroupSidebarItem group={group} key={group.id} />))
-          }
+            ? conversations.map((conversation) => (
+              <ConversationSidebarItem conversation={conversation} key={conversation.id} />
+            ))
+            : groups.map((group) => <GroupSidebarItem group={group} key={group.id} />)}
         </ConversationSidebarContainer>
       </ConversationSidebarStyle>
     </>

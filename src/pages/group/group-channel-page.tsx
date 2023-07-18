@@ -1,8 +1,8 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {fetchMessagesThunk} from '../../store/slices/messages-slice';
+import { fetchMessagesThunk } from '../../store/slices/messages-slice';
 import { AppDispatch } from '../../store';
 
 import MessagePanel from '../../components/messages/message-panel';
@@ -17,7 +17,7 @@ function GroupChannelPage() {
   useEffect(() => {
     if (!id) return;
     dispatch(fetchMessagesThunk(Number(id)));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <ConversationChannelPageStyle>

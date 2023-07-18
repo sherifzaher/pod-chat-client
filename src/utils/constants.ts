@@ -1,4 +1,3 @@
-
 export const chatTypes: ConversationTypeData[] = [
   {
     type: 'private',

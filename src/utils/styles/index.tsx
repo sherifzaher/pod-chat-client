@@ -1,9 +1,11 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
-  ContextMenuProps, ConversationSelectedProps,
+  ContextMenuProps,
+  ConversationSelectedProps,
   InputContainerProps,
-  MessageItemContentProps, MessageTypingStatusProps,
-  PageProps
+  MessageItemContentProps,
+  MessageTypingStatusProps,
+  PageProps,
 } from '../../types/style-types';
 
 export const SIDEBAR_WIDTH = 400;
@@ -304,7 +306,7 @@ export const MessageTypingStatus = styled.div<MessageTypingStatusProps>`
   font-size: 14px;
   color: #a2a2a2;
   transition: all 0.5s ease-in-out;
-  visibility: ${(props) => props.isRecipientTyping ? 'visible' : 'hidden'};
+  visibility: ${(props) => (props.isRecipientTyping ? 'visible' : 'hidden')};
 `;
 
 export const EditMessageInputField = styled.input`
@@ -313,7 +315,7 @@ export const EditMessageInputField = styled.input`
   background-color: #222222;
   color: #fff;
   border-radius: 5px;
-  font-family: "Inter";
+  font-family: 'Inter';
   font-size: 15px;
   padding: 18px 22px;
   margin: 4px 0;
@@ -342,9 +344,10 @@ export const ConversationSelectedItem = styled.div<ConversationSelectedProps>`
   background-color: #212121;
   font-size: 14px;
   color: #f0f0f0;
-  ${(props) => props.selected && css`
-    background-color: #444444;
-  `}
+  ${(props) => props.selected
+    && css`
+      background-color: #444444;
+    `}
 `;
 
 export const UserAvatar = styled.img`
@@ -447,9 +450,8 @@ export const ConversationTabItemStyle = styled.section<ConversationSelectedProps
   padding: 10px 32px;
   font-size: 14px;
   border-radius: 5px;
-  ${(props) =>
-  props.selected &&
-  css`
+  ${(props) => props.selected
+    && css`
       background-color: #303030;
     `};
 `;

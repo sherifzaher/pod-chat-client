@@ -1,23 +1,21 @@
-import {useNavigate} from "react-router-dom";
-import {ConversationSidebarItemStyle} from "../../utils/styles";
-import styles from "./index.module.scss";
-import {getRecipientFromConversation} from "../../utils/helpers";
-import {useAuthContext} from "../../context/auth-context";
+import { useNavigate } from 'react-router-dom';
+import { ConversationSidebarItemStyle } from '../../utils/styles';
+import styles from './index.module.scss';
+import { getRecipientFromConversation } from '../../utils/helpers';
+import { useAuthContext } from '../../context/auth-context';
 
 type Props = {
   conversation: Conversation;
-}
+};
 
-export default function ConversationSidebarItem({ conversation }: Props){
+export default function ConversationSidebarItem({ conversation }: Props) {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const recipient = getRecipientFromConversation(conversation, user!);
 
   return (
     <>
-      <ConversationSidebarItemStyle
-        onClick={() => navigate(`/conversations/${conversation.id}`)}
-      >
+      <ConversationSidebarItemStyle onClick={() => navigate(`/conversations/${conversation.id}`)}>
         <div className={styles.conversationAvatar} />
         <div className={styles.contentContainer}>
           <span className={styles.conversationName}>
@@ -30,5 +28,5 @@ export default function ConversationSidebarItem({ conversation }: Props){
       </ConversationSidebarItemStyle>
       <hr className={styles.hr} />
     </>
-  )
+  );
 }

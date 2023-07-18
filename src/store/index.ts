@@ -9,9 +9,9 @@ export const store = configureStore({
     conversations: ConversationReducer,
     messages: MessagesReducer,
     selectedConversationType: SelectedReducer,
-    groups: GroupsReducer
+    groups: GroupsReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

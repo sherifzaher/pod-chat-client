@@ -3,7 +3,7 @@ import ConversationSidebar from '../components/sidebars/conversation-sidebar';
 import UserSidebar from '../components/sidebars/user-sidebar';
 import { Page } from '../utils/styles';
 
-export default function AppPage(){
+export default function AppPage() {
   return (
     <Page>
       <UserSidebar />
@@ -11,4 +11,4 @@ export default function AppPage(){
       <Outlet />
     </Page>
   );
-};
+}

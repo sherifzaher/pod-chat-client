@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
-import { Button, InputContainer, InputField, InputLabel, TextField } from '../../utils/styles';
+import {
+  Button, InputContainer, InputField, InputLabel, TextField,
+} from '../../utils/styles';
 import { createConversationThunk } from '../../store/slices/conversation-slice';
 import { AppDispatch } from '../../store';
 
@@ -16,7 +18,7 @@ export default function CreateConversationForm({ closeModal }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<CreateConversationParams>({});
 
   const onSubmit = (conversationParams: CreateConversationParams) => {

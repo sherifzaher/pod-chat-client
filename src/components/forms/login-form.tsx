@@ -3,13 +3,15 @@ import { useForm } from 'react-hook-form';
 
 import styles from './index.module.scss';
 import { postLoginUser } from '../../utils/api';
-import { Button, InputContainer, InputField, InputLabel } from '../../utils/styles';
+import {
+  Button, InputContainer, InputField, InputLabel,
+} from '../../utils/styles';
 
 function RegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<UserCredentialsParams>();
   const navigate = useNavigate();
   const onSubmit = async (data: UserCredentialsParams) => {

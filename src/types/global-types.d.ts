@@ -72,7 +72,7 @@ type EditMessagePayload = {
   conversationId: number;
   messageId: number;
   content: string;
-}
+};
 
 type ConversationSelectedType = 'private' | 'group';
 
@@ -90,4 +90,4 @@ type Group = {
   createdAt: number;
   lastMessageSent: Message;
   lastMessageSentAt: Date;
-}
+};
