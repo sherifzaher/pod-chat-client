@@ -91,3 +91,26 @@ type Group = {
   lastMessageSent: Message;
   lastMessageSentAt: Date;
 };
+
+type GroupMessageType = {
+  id: number;
+  content: string;
+  createdAt: string;
+  author: User;
+  group: Group;
+};
+
+type FetchGroupMessagePayload = {
+  id: number;
+  messages: GroupMessageType[];
+};
+
+type GroupMessage = {
+  id: number;
+  messages: GroupMessageType[];
+};
+
+type GroupMessageEventPayload = {
+  message: GroupMessageType;
+  group: Group;
+};
