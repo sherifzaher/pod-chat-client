@@ -1,0 +1,73 @@
+
+> client@0.1.0 build /Users/ahmed/Self-Study/chua-chat-app/apps/client
+> react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+[eslint] 
+src/components/context-menus/selected-message-context-menu.tsx
+  Line 24:5:  Unexpected console statement  no-console
+  Line 30:5:  Unexpected console statement  no-console
+
+src/components/forms/create-conversation-form.tsx
+  Line 29:23:  Unexpected console statement  no-console
+
+src/components/forms/login-form.tsx
+  Line 20:7:  Unexpected console statement  no-console
+
+src/components/forms/register-form.tsx
+  Line 18:7:  Unexpected console statement  no-console
+
+src/components/messages/edit-message-container.tsx
+  Line 19:5:  Unexpected console statement  no-console
+
+src/components/messages/message-container.tsx
+  Line 38:5:  Unexpected console statement  no-console
+
+src/components/messages/message-input-field.tsx
+  Line 30:9:  Unexpected console statement  no-console
+  Line 41:7:  Unexpected console statement  no-console
+  Line 49:7:  Unexpected console statement  no-console
+
+src/hooks/useAuth.tsx
+  Line 14:25:  Unexpected console statement  no-console
+
+src/pages/conversations/conversation-channel-page.tsx
+  Line 29:7:  Unexpected console statement  no-console
+  Line 33:7:  Unexpected console statement  no-console
+  Line 37:7:  Unexpected console statement  no-console
+  Line 42:7:  Unexpected console statement  no-console
+  Line 47:7:  Unexpected console statement  no-console
+
+src/pages/conversations/conversation-page.tsx
+  Line 28:34:  Unexpected console statement  no-console
+
+src/store/slices/group-slice.ts
+  Line 24:9:  Unexpected console statement  no-console
+
+src/store/slices/messages-slice.ts
+  Line 88:9:  Unexpected console statement  no-console
+  Line 89:9:  Unexpected console statement  no-console
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  126.06 kB  build/static/js/main.1b676f2c.js
+  1.78 kB    build/static/js/969.181b6d45.chunk.js
+  696 B      build/static/css/main.c6436fcd.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+

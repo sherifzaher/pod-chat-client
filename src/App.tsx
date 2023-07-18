@@ -10,6 +10,7 @@ import ConversationsPage from './pages/conversations/conversation-page';
 import ConversationChannelPage from './pages/conversations/conversation-channel-page';
 import GroupPage from "./pages/group/group-page";
 import GroupChannelPage from "./pages/group/group-channel-page";
+import AppPage from "./pages/app-page";
 
 enableMapSet();
 
@@ -19,25 +20,17 @@ function App() {
       <Routes>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/conversations"
-          element={
-            <AuthenticatedRoutes>
-              <ConversationsPage />
-            </AuthenticatedRoutes>
-          }
-        >
-          <Route path=":id" element={<ConversationChannelPage />} />
-        </Route>
-        <Route
-          path="/groups"
-          element={
-            <AuthenticatedRoutes>
-              <GroupPage />
-            </AuthenticatedRoutes>
-          }
-        >
-          <Route path=":id" element={<GroupChannelPage />} />
+        <Route element={
+          <AuthenticatedRoutes>
+            <AppPage />
+          </AuthenticatedRoutes>
+        }>
+          <Route path="conversations" element={<ConversationsPage />}>
+            <Route path=":id" element={<ConversationChannelPage />} />
+          </Route>
+          <Route path="groups" element={<GroupPage />}>
+            <Route path=":id" element={<GroupChannelPage />} />
+          </Route>
         </Route>
       </Routes>
     </AppWithProviders>

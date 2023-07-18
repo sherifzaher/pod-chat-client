@@ -14,18 +14,21 @@ export default function ConversationSidebarItem({ conversation }: Props){
   const recipient = getRecipientFromConversation(conversation, user!);
 
   return (
-    <ConversationSidebarItemStyle
-      onClick={() => navigate(`/conversations/${conversation.id}`)}
-    >
-      <div className={styles.conversationAvatar} />
-      <div>
-        <span className={styles.conversationName}>
-          {recipient.firstName} {recipient.lastName}
-        </span>
-        <span className={styles.conversationLastMessage}>
-          {conversation.lastMessageSent?.content}
-        </span>
-      </div>
-    </ConversationSidebarItemStyle>
+    <>
+      <ConversationSidebarItemStyle
+        onClick={() => navigate(`/conversations/${conversation.id}`)}
+      >
+        <div className={styles.conversationAvatar} />
+        <div className={styles.contentContainer}>
+          <span className={styles.conversationName}>
+            {`${recipient?.firstName} ${recipient?.lastName}`}
+          </span>
+          <span className={styles.conversationLastMessage}>
+            {conversation.lastMessageSent?.content}
+          </span>
+        </div>
+      </ConversationSidebarItemStyle>
+      <hr className={styles.hr} />
+    </>
   )
 }

@@ -76,6 +76,11 @@ type EditMessagePayload = {
 
 type ConversationSelectedType = 'private' | 'group';
 
+type ConversationTypeData = {
+  type: ConversationSelectedType;
+  label: string;
+};
+
 type Group = {
   id: number;
   title?: string;

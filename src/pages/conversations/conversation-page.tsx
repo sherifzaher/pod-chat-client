@@ -50,7 +50,6 @@ function ConversationsPage() {
 
   return (
     <Page>
-      <ConversationSidebar />
       {!id && <ConversationPanel />}
       <Outlet />
     </Page>
