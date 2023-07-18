@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {
   deleteMessage as deleteMessageApi,
   getConversationMessages,
   editMessage as editMessageAPI,
 } from '../../utils/api';
+import {RootState} from "../index";
 
 export interface MessagesState {
   messages: FetchMessagePayload[];
@@ -103,6 +104,14 @@ export const MessagesSlice = createSlice({
       });
   },
 });
+
+const selectConversationMessages = (state: RootState) => state.messages.messages;
+const selectConversationMessagesById = (state: RootState, id: number) => id;
+
+export const selectConversationMessage = createSelector(
+  [selectConversationMessages, selectConversationMessagesById],
+  (groupMessages, id) => groupMessages.find(gm => gm.id === id)
+)
 
 export const { addMessage, deleteMessage, updateMessage } = MessagesSlice.actions;
 export default MessagesSlice.reducer;

@@ -14,6 +14,7 @@ import { MessageMenuContext } from '../../context/message-menu-context';
 import SelectedMessageContextMenu from '../context-menus/selected-message-context-menu';
 import FormattedMessage from './formatted-messages';
 import EditMessageContainer from './edit-message-container';
+import {selectConversationMessage} from "../../store/slices/messages-slice";
 
 export default function MessageContainer() {
   const [showMenu, setShowMenu] = useState(false);
@@ -35,9 +36,7 @@ export default function MessageContainer() {
   const { user } = useAuthContext();
   const { id } = useParams();
 
-  const messages = useSelector((state: RootState) => state.messages.messages).find(
-    (conv) => conv.id.toString() === id!,
-  )?.messages || [];
+  const conversationMessages = useSelector((state: RootState) => selectConversationMessage(state, Number(id!)))
 
   const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, message: Message) => {
     e.preventDefault();
@@ -78,11 +77,43 @@ export default function MessageContainer() {
   }, [id]);
 
   const formatMessages = useCallback(
-    () => messages.map((message, index, arr) => {
-      const nextIndex = index + 1;
-      const currentMessage = arr[index];
-      const nextMessage = arr[nextIndex];
-      if (arr.length === nextIndex) {
+    () => {
+      if (!conversationMessages) return []
+      return conversationMessages.messages.map((message, index, arr) => {
+        const nextIndex = index + 1;
+        const currentMessage = arr[index];
+        const nextMessage = arr[nextIndex];
+        if (arr.length === nextIndex) {
+          return (
+            <FormattedMessage
+              onContextMenu={(e) => onContextMenu(e, message)}
+              key={message.id}
+              user={user}
+              message={message}
+              isEditing={isEditing}
+              selectedMessageEdit={selectedMessageEdit}
+              onEditMessageChange={onEditMessageChange}
+              setIsEditing={setIsEditing}
+            />
+          );
+        }
+        if (currentMessage.author.id === nextMessage.author.id) {
+          return (
+            <MessageItemContainer onContextMenu={(e) => onContextMenu(e, message)} key={message.id}>
+              {isEditing && message.id === selectedMessageEdit?.id ? (
+                <MessageItemContent padding="0 0 0 70px">
+                  <EditMessageContainer
+                    setIsEditing={setIsEditing}
+                    selectedMessageEdit={selectedMessageEdit}
+                    onEditMessageChange={onEditMessageChange}
+                  />
+                </MessageItemContent>
+              ) : (
+                <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
+              )}
+            </MessageItemContainer>
+          );
+        }
         return (
           <FormattedMessage
             onContextMenu={(e) => onContextMenu(e, message)}
@@ -93,40 +124,12 @@ export default function MessageContainer() {
             selectedMessageEdit={selectedMessageEdit}
             onEditMessageChange={onEditMessageChange}
             setIsEditing={setIsEditing}
-            />
-        );
-      }
-      if (currentMessage.author.id === nextMessage.author.id) {
-        return (
-          <MessageItemContainer onContextMenu={(e) => onContextMenu(e, message)} key={message.id}>
-            {isEditing && message.id === selectedMessageEdit?.id ? (
-              <MessageItemContent padding="0 0 0 70px">
-                <EditMessageContainer
-                  setIsEditing={setIsEditing}
-                  selectedMessageEdit={selectedMessageEdit}
-                  onEditMessageChange={onEditMessageChange}
-                  />
-              </MessageItemContent>
-            ) : (
-              <MessageItemContent padding="0 0 0 70px">{message.content}</MessageItemContent>
-            )}
-          </MessageItemContainer>
-        );
-      }
-      return (
-        <FormattedMessage
-          onContextMenu={(e) => onContextMenu(e, message)}
-          key={message.id}
-          user={user}
-          message={message}
-          isEditing={isEditing}
-          selectedMessageEdit={selectedMessageEdit}
-          onEditMessageChange={onEditMessageChange}
-          setIsEditing={setIsEditing}
           />
-      );
-    }),
-    [messages, user, isEditing, selectedMessageEdit, onEditMessageChange],
+        );
+      })
+    }
+      ,
+    [conversationMessages, user, isEditing, selectedMessageEdit, onEditMessageChange],
   );
 
   return (
