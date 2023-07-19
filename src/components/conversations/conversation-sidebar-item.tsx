@@ -19,8 +19,8 @@ export default function ConversationSidebarItem({ conversation }: Props) {
     const { lastMessageSent } = conversation;
     if (lastMessageSent)
       return lastMessageSent.content.length >= MESSAGE_LENGTH_MAX
-              ? lastMessageSent.content.slice(0, MESSAGE_LENGTH_MAX).concat('...')
-              : lastMessageSent.content
+        ? lastMessageSent.content.slice(0, MESSAGE_LENGTH_MAX).concat('...')
+        : lastMessageSent.content;
     return null;
   };
 
@@ -32,9 +32,7 @@ export default function ConversationSidebarItem({ conversation }: Props) {
           <span className={styles.conversationName}>
             {`${recipient?.firstName} ${recipient?.lastName}`}
           </span>
-          <span className={styles.conversationLastMessage}>
-            {lastMessageContent()}
-          </span>
+          <span className={styles.conversationLastMessage}>{lastMessageContent()}</span>
         </div>
       </ConversationSidebarItemStyle>
       <hr className={styles.hr} />

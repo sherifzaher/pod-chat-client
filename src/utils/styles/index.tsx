@@ -5,7 +5,7 @@ import {
   InputContainerProps,
   MessageItemContentProps,
   MessageTypingStatusProps,
-  PageProps,
+  PageProps
 } from '../../types/style-types';
 
 export const SIDEBAR_WIDTH = 400;
@@ -350,8 +350,9 @@ export const ConversationSelectedItem = styled.div<ConversationSelectedProps>`
   background-color: #212121;
   font-size: 14px;
   color: #f0f0f0;
-  ${(props) => props.selected
-    && css`
+  ${(props) =>
+    props.selected &&
+    css`
       background-color: #444444;
     `}
 `;
@@ -456,8 +457,9 @@ export const ConversationTabItemStyle = styled.section<ConversationSelectedProps
   padding: 10px 32px;
   font-size: 14px;
   border-radius: 5px;
-  ${(props) => props.selected
-    && css`
+  ${(props) =>
+    props.selected &&
+    css`
       background-color: #303030;
     `};
 `;

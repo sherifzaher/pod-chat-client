@@ -25,7 +25,8 @@ export default function MessagePanel({ isRecipientTyping }: Props) {
         <MessageContainer />
         <MessageInputField />
         <MessageTypingStatus isRecipientTyping={isRecipientTyping}>
-          {isRecipientTyping && `${getRecipientFromConversation(conversation!, user!).firstName} is typing ...`}
+          {isRecipientTyping &&
+            `${getRecipientFromConversation(conversation!, user!).firstName} is typing ...`}
         </MessageTypingStatus>
       </MessagePanelBody>
     </MessagePanelStyle>

@@ -21,11 +21,11 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
-          element={(
+          element={
             <AuthenticatedRoutes>
               <AppPage />
             </AuthenticatedRoutes>
-          )}
+          }
         >
           <Route path="conversations" element={<ConversationsPage />}>
             <Route path=":id" element={<ConversationChannelPage />} />

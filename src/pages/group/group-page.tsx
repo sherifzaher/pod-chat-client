@@ -8,7 +8,7 @@ import ConversationPanel from '../../components/conversations/conversation-panel
 import { AppDispatch } from '../../store';
 import { fetchGroupThunk } from '../../store/slices/group-slice';
 import { updateType } from '../../store/slices/selected-slice';
-import { addGroupMessage } from "../../store/slices/group-message-slice";
+import { addGroupMessage } from '../../store/slices/group-message-slice';
 
 import { useSocketContext } from '../../context/socket-context';
 

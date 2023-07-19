@@ -1,6 +1,4 @@
-import React, {
-  createContext, PropsWithChildren, useContext, useMemo, useState,
-} from 'react';
+import React, { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
 
 type AuthContextType = {
   user?: User;

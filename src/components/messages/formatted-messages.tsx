@@ -1,13 +1,14 @@
 import { formatRelative } from 'date-fns';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import {
   MessageItemAvatar,
-  MessageItemContainer, MessageItemContent,
+  MessageItemContainer,
+  MessageItemContent,
   MessageItemDetails,
-  MessageItemHeader,
+  MessageItemHeader
 } from '../../utils/styles';
-import EditMessageContainer from "./edit-message-container";
-import {RootState} from "../../store";
+import EditMessageContainer from './edit-message-container';
+import { RootState } from '../../store';
 
 type FormattedMessageProps = {
   // eslint-disable-next-line react/require-default-props
@@ -20,11 +21,12 @@ export default function FormattedMessage({
   user,
   message,
   onContextMenu,
-  onEditMessageChange,
+  onEditMessageChange
 }: FormattedMessageProps) {
-  
-  const { isEditing, messageBeingEdited }  = useSelector((state: RootState) => state.messageContainer);
-  
+  const { isEditing, messageBeingEdited } = useSelector(
+    (state: RootState) => state.messageContainer
+  );
+
   return (
     <MessageItemContainer onContextMenu={onContextMenu}>
       <MessageItemAvatar />
@@ -33,22 +35,20 @@ export default function FormattedMessage({
           <span
             className="authorName"
             style={{
-              color: user?.id === message.author.id ? '#757575' : '#5E8BFF',
+              color: user?.id === message.author.id ? '#757575' : '#5E8BFF'
             }}
           >
-            {message.author.firstName}
-            {' '}
-            {message.author.lastName}
+            {message.author.firstName} {message.author.lastName}
           </span>
           <span className="time">{formatRelative(new Date(message.createdAt), new Date())}</span>
         </MessageItemHeader>
-         {isEditing && message.id === messageBeingEdited?.id ? (
+        {isEditing && message.id === messageBeingEdited?.id ? (
           <MessageItemContent padding="0 0 0 2px">
             <EditMessageContainer onEditMessageChange={onEditMessageChange} />
           </MessageItemContent>
-         ) : (
+        ) : (
           <MessageItemContent padding="4px 0 0 2px">{message.content}</MessageItemContent>
-         )}
+        )}
       </MessageItemDetails>
     </MessageItemContainer>
   );

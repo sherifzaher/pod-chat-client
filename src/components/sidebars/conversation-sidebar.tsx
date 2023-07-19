@@ -4,7 +4,7 @@ import {
   ConversationSearchbar,
   ConversationSidebarHeaderStyle,
   ConversationSidebarStyles,
-  SidebarContainerStyle,
+  SidebarContainerStyle
 } from '../../utils/styles';
 import avatar from '../../__assets__/avatar_1.png';
 import ConversationSidebarItem from '../conversations/conversation-sidebar-item';
@@ -15,7 +15,7 @@ export default function ConversationSidebar() {
   const conversations = useSelector((state: RootState) => state.conversations.conversations);
   const groups = useSelector((state: RootState) => state.groups.groups);
   const selectedConversationType = useSelector(
-    (state: RootState) => state.selectedConversationType.type,
+    (state: RootState) => state.selectedConversationType.type
   );
   return (
     <ConversationSidebarStyles>
@@ -27,8 +27,8 @@ export default function ConversationSidebar() {
         <SidebarContainerStyle>
           {selectedConversationType === 'private'
             ? conversations.map((conversation) => (
-              <ConversationSidebarItem key={conversation.id} conversation={conversation} />
-            ))
+                <ConversationSidebarItem key={conversation.id} conversation={conversation} />
+              ))
             : groups.map((group) => <GroupSidebarItem key={group.id} group={group} />)}
         </SidebarContainerStyle>
       </div>

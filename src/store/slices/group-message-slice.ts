@@ -1,32 +1,28 @@
-import {createAsyncThunk, createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchGroupMessages as fetchGroupMessagesAPI } from '../../utils/api';
-import {RootState} from "../index";
+import { RootState } from '../index';
 
 export interface GroupMessagesState {
   messages: GroupMessage[];
 }
 
 const initialState: GroupMessagesState = {
-  messages: [],
+  messages: []
 };
 
-export const fetchGroupMessagesThunk = createAsyncThunk(
-  'groupMessages/fetch',
-  (id: number) => fetchGroupMessagesAPI(id)
+export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', (id: number) =>
+  fetchGroupMessagesAPI(id)
 );
 
 export const GroupMessagesSlice = createSlice({
   name: 'groupMessages',
   initialState,
   reducers: {
-    addGroupMessage: (
-      state,
-      action: PayloadAction<GroupMessageEventPayload>
-    ) => {
+    addGroupMessage: (state, action: PayloadAction<GroupMessageEventPayload>) => {
       const { group, message } = action.payload;
       const groupMessage = state.messages.find((gm) => gm.id === group.id);
       groupMessage?.messages.unshift(message);
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
@@ -39,7 +35,7 @@ export const GroupMessagesSlice = createSlice({
         ? (state.messages[index] = action.payload.data)
         : state.messages.push(action.payload.data);
     });
-  },
+  }
 });
 
 const selectGroupMessages = (state: RootState) => state.groupMessages.messages;
@@ -47,8 +43,8 @@ const selectGroupMessagesById = (state: RootState, id: number) => id;
 
 export const selectGroupMessage = createSelector(
   [selectGroupMessages, selectGroupMessagesById],
-  (groupMessages, id) => groupMessages.find(gm => gm.id === id)
-)
+  (groupMessages, id) => groupMessages.find((gm) => gm.id === id)
+);
 
 export const { addGroupMessage } = GroupMessagesSlice.actions;
 

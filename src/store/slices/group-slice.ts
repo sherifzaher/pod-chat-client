@@ -6,7 +6,7 @@ export interface GroupState {
 }
 
 const initialState: GroupState = {
-  groups: [],
+  groups: []
 };
 
 export const fetchGroupThunk = createAsyncThunk('group/fetch', () => FetchGroupsAPI());
@@ -20,7 +20,7 @@ export const GroupSlice = createSlice({
       console.log(action.payload.data);
       state.groups = action.payload.data;
     });
-  },
+  }
 });
 
 // export const { } = GroupSlice.actions;

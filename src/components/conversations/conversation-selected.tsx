@@ -7,12 +7,12 @@ import { updateType } from '../../store/slices/selected-slice';
 const chatTypes = [
   {
     type: 'private',
-    label: 'Private',
+    label: 'Private'
   },
   {
     type: 'group',
-    label: 'Group',
-  },
+    label: 'Group'
+  }
 ];
 
 export default function ConversationSelected() {

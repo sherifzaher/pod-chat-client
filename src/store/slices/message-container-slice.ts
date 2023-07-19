@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface MessageContainerState {
   selectedMessage?: Message | GroupMessageType;
@@ -8,7 +8,7 @@ export interface MessageContainerState {
 
 const initialState: MessageContainerState = {
   isEditing: false
-}
+};
 
 export const MessageContainerSlice = createSlice({
   name: 'messageContainer',
@@ -17,11 +17,14 @@ export const MessageContainerSlice = createSlice({
     setSelectedMessage: (state, action: PayloadAction<Message | GroupMessageType>) => {
       state.selectedMessage = action.payload;
     },
-    setMessageBeingEditing: (state, action: PayloadAction<Message | GroupMessageType | undefined>) => {
+    setMessageBeingEditing: (
+      state,
+      action: PayloadAction<Message | GroupMessageType | undefined>
+    ) => {
       state.messageBeingEdited = action.payload;
     },
     setIsEditingMessage: (state, action: PayloadAction<boolean>) => {
-      state.isEditing = action.payload
+      state.isEditing = action.payload;
     },
     editMessageContent: (state, action: PayloadAction<string>) => {
       if (!state.messageBeingEdited) return;
@@ -35,5 +38,11 @@ export const MessageContainerSlice = createSlice({
   }
 });
 
-export const { setSelectedMessage, resetMessageContainer, setMessageBeingEditing, setIsEditingMessage, editMessageContent } = MessageContainerSlice.actions;
+export const {
+  setSelectedMessage,
+  resetMessageContainer,
+  setMessageBeingEditing,
+  setIsEditingMessage,
+  editMessageContent
+} = MessageContainerSlice.actions;
 export default MessageContainerSlice.reducer;

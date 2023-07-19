@@ -3,16 +3,14 @@ import { useForm } from 'react-hook-form';
 
 import styles from './index.module.scss';
 import { postLoginUser } from '../../utils/api';
-import {
-  Button, InputContainer, InputField, InputLabel,
-} from '../../utils/styles';
-import {useSocketContext} from "../../context/socket-context";
+import { Button, InputContainer, InputField, InputLabel } from '../../utils/styles';
+import { useSocketContext } from '../../context/socket-context';
 
 function RegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<UserCredentialsParams>();
   const navigate = useNavigate();
   const socket = useSocketContext();

@@ -1,6 +1,4 @@
-import {
-  createContext, Dispatch, SetStateAction, useContext,
-} from 'react';
+import { createContext, Dispatch, SetStateAction, useContext } from 'react';
 
 type MessageMenuContextType = {
   message: Message | null;
@@ -13,7 +11,7 @@ export const MessageMenuContext = createContext<MessageMenuContextType>({
   message: null,
   setMessage: () => {},
   editMessage: null,
-  setEditMessage: () => {},
+  setEditMessage: () => {}
 });
 
 export const useMessageContextMenu = () => {

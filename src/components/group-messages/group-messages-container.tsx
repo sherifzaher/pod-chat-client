@@ -1,9 +1,5 @@
-import { MessageContainerStyle } from "../../utils/styles";
+import { MessageContainerStyle } from '../../utils/styles';
 
-export default function GroupMessagesContainer(){
-    return (
-        <MessageContainerStyle>
-            GroupMessagesContainer
-        </MessageContainerStyle>
-    )
+export default function GroupMessagesContainer() {
+  return <MessageContainerStyle>GroupMessagesContainer</MessageContainerStyle>;
 }

@@ -1,10 +1,10 @@
-import {createAsyncThunk, createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   deleteMessage as deleteMessageApi,
   getConversationMessages,
-  editMessage as editMessageAPI,
+  editMessage as editMessageAPI
 } from '../../utils/api';
-import {RootState} from "../index";
+import { RootState } from '../index';
 
 export interface MessagesState {
   messages: FetchMessagePayload[];
@@ -13,17 +13,21 @@ export interface MessagesState {
 
 const initialState: MessagesState = {
   messages: [],
-  loading: false,
+  loading: false
 };
 
-export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (id: number) => getConversationMessages(id));
+export const fetchMessagesThunk = createAsyncThunk('messages/fetch', (id: number) =>
+  getConversationMessages(id)
+);
 
 export const deleteMessageThunk = createAsyncThunk(
   'messages/delete',
-  (params: DeleteMessageParams) => deleteMessageApi(params),
+  (params: DeleteMessageParams) => deleteMessageApi(params)
 );
 
-export const editMessageThunk = createAsyncThunk('messages/edit', (params: EditMessagePayload) => editMessageAPI(params));
+export const editMessageThunk = createAsyncThunk('messages/edit', (params: EditMessagePayload) =>
+  editMessageAPI(params)
+);
 
 export const MessagesSlice = createSlice({
   name: 'messages',
@@ -46,7 +50,7 @@ export const MessagesSlice = createSlice({
     updateMessage: (state, action: PayloadAction<Message>) => {
       const {
         id: messageId,
-        conversation: { id: conversationId },
+        conversation: { id: conversationId }
       } = action.payload;
 
       const conversationMessage = state.messages.find((conv) => conv.id === conversationId);
@@ -56,7 +60,7 @@ export const MessagesSlice = createSlice({
       if (messageIndex < 0) return;
 
       conversationMessage.messages[messageIndex] = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -81,7 +85,7 @@ export const MessagesSlice = createSlice({
         const conversationMessages = state.messages.find((cm) => cm.id === data.conversationId);
 
         const messageIndex = conversationMessages?.messages.findIndex(
-          (m) => m.id === data.messageId,
+          (m) => m.id === data.messageId
         )!;
         if (messageIndex > -1) {
           conversationMessages?.messages.splice(messageIndex, 1);
@@ -102,7 +106,7 @@ export const MessagesSlice = createSlice({
 
         conversationMessage.messages[messageIndex] = message;
       });
-  },
+  }
 });
 
 const selectConversationMessages = (state: RootState) => state.messages.messages;
@@ -110,8 +114,8 @@ const selectConversationMessagesById = (state: RootState, id: number) => id;
 
 export const selectConversationMessage = createSelector(
   [selectConversationMessages, selectConversationMessagesById],
-  (messages, id) => messages.find(gm => gm.id === id)
-)
+  (messages, id) => messages.find((gm) => gm.id === id)
+);
 
 export const { addMessage, deleteMessage, updateMessage } = MessagesSlice.actions;
 export default MessagesSlice.reducer;

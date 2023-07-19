@@ -4,7 +4,7 @@ import {
   UserSidebarBottom,
   UserSidebarStyle,
   UserSidebarTop,
-  UserSidebarTopIcons,
+  UserSidebarTopIcons
 } from '../../utils/styles';
 import styles from './index.module.scss';
 import avatar from '../../__assets__/avatar_1.png';

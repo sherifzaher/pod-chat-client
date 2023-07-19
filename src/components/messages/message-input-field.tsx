@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {useSelector} from "react-redux";
+import { useSelector } from 'react-redux';
 
-import {postGroupMessage, postNewMessage} from '../../utils/api';
+import { postGroupMessage, postNewMessage } from '../../utils/api';
 import { MessageInput, MessageInputContainer } from '../../utils/styles';
 
 import { useSocketContext } from '../../context/socket-context';
 import { useAuthContext } from '../../context/auth-context';
-import {RootState} from "../../store";
+import { RootState } from '../../store';
 
 type Props = {
   content: string;
@@ -22,11 +22,10 @@ export default function MessageInputField() {
 
   const conversationType = useSelector((state: RootState) => state.selectedConversationType.type);
 
-  const { id : routeId } = useParams();
+  const { id: routeId } = useParams();
 
   const socket = useSocketContext();
   const { user } = useAuthContext();
-
 
   const handleSendMessage = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,21 +35,21 @@ export default function MessageInputField() {
 
       if (conversationType === 'private') {
         try {
-          await postNewMessage({ id, content});
+          await postNewMessage({ id, content });
           setContent('');
         } catch (err) {
           console.log(err);
         }
       } else {
         try {
-          await postGroupMessage({id, content});
+          await postGroupMessage({ id, content });
           setContent('');
         } catch (err) {
           console.log(err);
         }
       }
     },
-    [routeId, content],
+    [routeId, content]
   );
 
   const handleSendTypingStatus = useCallback(
@@ -62,7 +61,7 @@ export default function MessageInputField() {
         console.log('user is typing');
         socket.emit('onTypingStart', {
           conversationId: routeId,
-          sender: user?.id,
+          sender: user?.id
         });
         setTyping(true);
       }
@@ -71,13 +70,13 @@ export default function MessageInputField() {
           console.log('user stopped typing');
           socket.emit('onTypingStop', {
             conversationId: routeId,
-            sender: user?.id,
+            sender: user?.id
           });
           setTyping(false);
-        }, 500),
+        }, 500)
       );
     },
-    [timer, typing, socket, routeId, user?.id],
+    [timer, typing, socket, routeId, user?.id]
   );
 
   return (

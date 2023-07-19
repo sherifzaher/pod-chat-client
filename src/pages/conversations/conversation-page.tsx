@@ -5,7 +5,7 @@ import { AppDispatch } from '../../store';
 import {
   addConversation,
   fetchConversationsThunk,
-  updateConversation,
+  updateConversation
 } from '../../store/slices/conversation-slice';
 import { Page } from '../../utils/styles';
 import ConversationSidebar from '../../components/conversations/conversation-sidebar';

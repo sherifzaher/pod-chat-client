@@ -5,7 +5,7 @@ export type SelectedTypeState = {
 };
 
 const initialState: SelectedTypeState = {
-  type: 'private',
+  type: 'private'
 };
 
 export const SelectedTypeSlice = createSlice({
@@ -14,8 +14,8 @@ export const SelectedTypeSlice = createSlice({
   reducers: {
     updateType: (state, action: PayloadAction<ConversationSelectedType>) => {
       state.type = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { updateType } = SelectedTypeSlice.actions;
