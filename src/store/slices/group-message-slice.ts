@@ -42,6 +42,14 @@ export const GroupMessagesSlice = createSlice({
   },
 });
 
+const selectGroupMessages = (state: RootState) => state.groupMessages.messages;
+const selectGroupMessagesById = (state: RootState, id: number) => id;
+
+export const selectGroupMessage = createSelector(
+  [selectGroupMessages, selectGroupMessagesById],
+  (groupMessages, id) => groupMessages.find(gm => gm.id === id)
+)
+
 export const { addGroupMessage } = GroupMessagesSlice.actions;
 
 export default GroupMessagesSlice.reducer;

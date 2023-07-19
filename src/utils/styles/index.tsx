@@ -311,7 +311,7 @@ export const MessageTypingStatus = styled.div<MessageTypingStatusProps>`
 export const EditMessageInputField = styled.input`
   outline: none;
   border: none;
-  background-color: #222222;
+  background-color: #222;
   color: #fff;
   border-radius: 5px;
   font-family: 'Inter';
@@ -319,6 +319,12 @@ export const EditMessageInputField = styled.input`
   padding: 18px 22px;
   margin: 4px 0;
   width: 100%;
+
+  &:disabled {
+    background-color: #2d2d2d;
+    color: gray;
+    cursor: progress;
+  }
 `;
 
 export const EditMessageActionsContainer = styled.div`

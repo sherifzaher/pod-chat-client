@@ -1,34 +1,30 @@
 import { formatRelative } from 'date-fns';
-import React, { Dispatch, SetStateAction } from 'react';
+import { useSelector } from "react-redux";
 import {
-  EditMessageInputField,
   MessageItemAvatar,
-  MessageItemContainer,
-  MessageItemContent,
+  MessageItemContainer, MessageItemContent,
   MessageItemDetails,
   MessageItemHeader,
 } from '../../utils/styles';
-import EditMessageContainer from './edit-message-container';
+import EditMessageContainer from "./edit-message-container";
+import {RootState} from "../../store";
 
 type FormattedMessageProps = {
   // eslint-disable-next-line react/require-default-props
   user?: User;
-  message: Message;
+  message: Message | GroupMessageType;
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  isEditing: boolean;
-  selectedMessageEdit: Message | null;
   onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 export default function FormattedMessage({
   user,
   message,
   onContextMenu,
-  isEditing,
-  selectedMessageEdit,
   onEditMessageChange,
-  setIsEditing,
 }: FormattedMessageProps) {
+  
+  const { isEditing, messageBeingEdited }  = useSelector((state: RootState) => state.messageContainer);
+  
   return (
     <MessageItemContainer onContextMenu={onContextMenu}>
       <MessageItemAvatar />
@@ -46,18 +42,13 @@ export default function FormattedMessage({
           </span>
           <span className="time">{formatRelative(new Date(message.createdAt), new Date())}</span>
         </MessageItemHeader>
-        {/* <MessageItemContent>{message.content}</MessageItemContent> */}
-        {isEditing && message.id === selectedMessageEdit?.id ? (
+         {isEditing && message.id === messageBeingEdited?.id ? (
           <MessageItemContent padding="0 0 0 2px">
-            <EditMessageContainer
-              setIsEditing={setIsEditing}
-              selectedMessageEdit={selectedMessageEdit}
-              onEditMessageChange={onEditMessageChange}
-            />
+            <EditMessageContainer onEditMessageChange={onEditMessageChange} />
           </MessageItemContent>
-        ) : (
-          <MessageItemContent padding="0 0 0 2px">{message.content}</MessageItemContent>
-        )}
+         ) : (
+          <MessageItemContent padding="4px 0 0 2px">{message.content}</MessageItemContent>
+         )}
       </MessageItemDetails>
     </MessageItemContainer>
   );

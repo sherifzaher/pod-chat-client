@@ -1,18 +1,18 @@
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Dispatch, SetStateAction } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { ContextMenuStyles } from '../../utils/styles';
-import { useMessageContextMenu } from '../../context/message-menu-context';
+
+import {AppDispatch, RootState} from '../../store';
 import { deleteMessageThunk } from '../../store/slices/messages-slice';
-import { AppDispatch } from '../../store';
+import {setIsEditingMessage, setMessageBeingEditing} from "../../store/slices/message-container-slice";
+
 import { useAuthContext } from '../../context/auth-context';
 
 type Props = {
   points: { x: number; y: number };
-  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
-export default function SelectedMessageContextMenu({ points, setIsEditing }: Props) {
-  const { message, setEditMessage } = useMessageContextMenu();
+export default function SelectedMessageContextMenu({ points }: Props) {
+  const message = useSelector((state: RootState) => state.messageContainer.selectedMessage);
   const { id } = useParams();
   const { user } = useAuthContext();
 
@@ -26,9 +26,9 @@ export default function SelectedMessageContextMenu({ points, setIsEditing }: Pro
   };
 
   const editMessage = () => {
-    setIsEditing(true);
-    console.log(message);
-    setEditMessage(message);
+    if (!message) return;
+    dispatch(setIsEditingMessage(true));
+    dispatch(setMessageBeingEditing(message));
   };
 
   return (

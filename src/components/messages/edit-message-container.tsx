@@ -1,40 +1,51 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useState} from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { EditMessageActionsContainer, EditMessageInputField } from '../../utils/styles';
-import { AppDispatch } from '../../store';
+
+import {AppDispatch, RootState} from '../../store';
 import { editMessageThunk } from '../../store/slices/messages-slice';
+import {setIsEditingMessage} from "../../store/slices/message-container-slice";
 
 type Props = {
-  selectedMessageEdit: Message;
   onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setIsEditing: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function EditMessageContainer({
-  selectedMessageEdit,
   onEditMessageChange,
-  setIsEditing,
 }: Props) {
+  const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const { messageBeingEdited  } = useSelector((state: RootState) => state.messageContainer);
   const { id } = useParams();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('submitting edit');
+    if(!messageBeingEdited) {
+      console.log('MessageIsBeingEdited is undefined... Returning');
+      return;
+    }
+
     const params: EditMessagePayload = {
       conversationId: Number(id!),
-      messageId: selectedMessageEdit.id,
-      content: selectedMessageEdit.content,
+      messageId: messageBeingEdited?.id!,
+      content: messageBeingEdited?.content!,
     };
+
     dispatch(editMessageThunk(params))
       .unwrap()
-      .then(() => setIsEditing(false));
+      .then(() => dispatch(setIsEditingMessage(false)))
+      .catch((err) => {
+        console.log(err);
+        dispatch(setIsEditingMessage(false));
+      })
   };
 
   return (
     <div>
       <form style={{ width: '100%' }} onSubmit={onSubmit}>
-        <EditMessageInputField value={selectedMessageEdit.content} onChange={onEditMessageChange} />
+        <EditMessageInputField disabled={disabled} value={messageBeingEdited?.content} onChange={onEditMessageChange} />
       </form>
       <EditMessageActionsContainer>
         <div>

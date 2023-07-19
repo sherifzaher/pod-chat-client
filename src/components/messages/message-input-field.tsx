@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { postNewMessage } from '../../utils/api';
 import { MessageInput, MessageInputContainer } from '../../utils/styles';
+
 import { useSocketContext } from '../../context/socket-context';
 import { useAuthContext } from '../../context/auth-context';
 
@@ -15,9 +17,12 @@ export default function MessageInputField() {
   const [content, setContent] = useState('');
   const [typing, setTyping] = useState(false);
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout>>();
+
+  const { id } = useParams();
+
   const socket = useSocketContext();
   const { user } = useAuthContext();
-  const { id } = useParams();
+
 
   const handleSendMessage = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
