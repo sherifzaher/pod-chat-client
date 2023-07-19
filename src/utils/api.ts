@@ -4,35 +4,41 @@ const { REACT_APP_API_URL } = process.env;
 
 const config: AxiosRequestConfig = { withCredentials: true };
 
-export const postRegisterUser = async (data: CreateUserParams) => axios.post(`${REACT_APP_API_URL}/auth/register`, data, config);
+const axiosClient = axios.create({
+  baseURL: REACT_APP_API_URL
+});
 
-export const postLoginUser = async (data: UserCredentialsParams) => axios.post(`${REACT_APP_API_URL}/auth/login`, data, config);
+export const postRegisterUser = async (data: CreateUserParams) => axiosClient.post(`/auth/register`, data, config);
 
-export const getAuthUser = async () => axios.get(`${REACT_APP_API_URL}/auth/status`, config);
+export const postLoginUser = async (data: UserCredentialsParams) => axiosClient.post(`/auth/login`, data, config);
 
-export const getConversations = () => axios.get<Conversation[]>(`${REACT_APP_API_URL}/conversations`, config);
+export const getAuthUser = async () => axiosClient.get(`/auth/status`, config);
 
-export const getConversationMessages = (conversationId: number) => axios.get<FetchMessagePayload>(`${REACT_APP_API_URL}/conversations/${conversationId}/messages`);
+export const getConversations = () => axiosClient.get<Conversation[]>(`/conversations`, config);
 
-export const postNewMessage = (conversationId: number, content: CreateMessageParams) => axios.post(`${REACT_APP_API_URL}/conversations/${conversationId}/messages`, content, config);
+export const getConversationMessages = (conversationId: number) => axiosClient.get<FetchMessagePayload>(`/conversations/${conversationId}/messages`, config);
 
-export const postNewConversation = (data: CreateConversationParams) => axios.post<Conversation>(`${REACT_APP_API_URL}/conversations`, data, config);
+export const postNewMessage = ({ id, content }: CreateMessageParams) => axiosClient.post(`/conversations/${id}/messages`, { content }, config);
 
-export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) => axios.delete<DeleteMessageResponse>(
-  `${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`,
+export const postNewConversation = (data: CreateConversationParams) => axiosClient.post<Conversation>(`/conversations`, data, config);
+
+export const deleteMessage = ({ conversationId, messageId }: DeleteMessageParams) => axiosClient.delete<DeleteMessageResponse>(
+  `/conversations/${conversationId}/messages/${messageId}`,
   config,
 );
 
-export const editMessage = ({ conversationId, messageId, content }: EditMessagePayload) => axios.patch<Message>(
-  `${REACT_APP_API_URL}/conversations/${conversationId}/messages/${messageId}`,
+export const editMessage = ({ conversationId, messageId, content }: EditMessagePayload) => axiosClient.patch<Message>(
+  `/conversations/${conversationId}/messages/${messageId}`,
   { content },
   config,
 );
 
-export const fetchGroups = () => axios.get<Group[]>(`${REACT_APP_API_URL}/groups`, config);
+export const fetchGroups = () => axiosClient.get<Group[]>(`/groups`, config);
 
 export const fetchGroupMessages = (id: number) =>
-  axios.get<FetchGroupMessagePayload>(
-    `${REACT_APP_API_URL}/groups/${id}/messages`,
+  axiosClient.get<FetchGroupMessagePayload>(
+    `/groups/${id}/messages`,
     config
   );
+
+export const postGroupMessage = ({id, content}: CreateMessageParams) => axiosClient.post(`/groups/${id}/messages`, { content }, config);

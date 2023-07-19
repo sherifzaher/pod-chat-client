@@ -50,6 +50,7 @@ type MessageEventPayload = {
 };
 
 type CreateMessageParams = {
+  id: number;
   content: string;
 };
 
