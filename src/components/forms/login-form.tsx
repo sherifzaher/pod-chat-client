@@ -6,6 +6,7 @@ import { postLoginUser } from '../../utils/api';
 import {
   Button, InputContainer, InputField, InputLabel,
 } from '../../utils/styles';
+import {useSocketContext} from "../../context/socket-context";
 
 function RegisterForm() {
   const {
@@ -14,12 +15,16 @@ function RegisterForm() {
     formState: { errors },
   } = useForm<UserCredentialsParams>();
   const navigate = useNavigate();
+  const socket = useSocketContext();
   const onSubmit = async (data: UserCredentialsParams) => {
     try {
       await postLoginUser(data);
+      socket.connect();
       navigate('/conversations');
+      console.log(socket.connected);
     } catch (err) {
       console.log(err);
+      console.log(socket.connected);
     }
   };
 
