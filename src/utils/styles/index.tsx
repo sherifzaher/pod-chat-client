@@ -130,8 +130,10 @@ export const OverlayStyle = styled.div`
 `;
 
 export const ModalContainerStyle = styled.header`
+  position: relative;
   background-color: #121212;
   width: 650px;
+  border-radius: 10px;
 `;
 
 export const ModalHeaderStyle = styled.header`
@@ -486,5 +488,18 @@ export const SidebarContainerItemContent = styled.div`
     font-size: 16px;
     color: #797979;
     font-weight: 500;
+  }
+`;
+
+export const RecipientResultContainer = styled.div`
+  position: absolute;
+  background-color: #161616;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  margin: 4px 24px;
+  max-height: 190px;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
