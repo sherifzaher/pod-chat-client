@@ -126,7 +126,7 @@ export const OverlayStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 99;
+  z-index: 9999;
 `;
 
 export const ModalContainerStyle = styled.header`
@@ -425,7 +425,7 @@ export const ConversationSidebarHeaderStyle = styled.header`
   width: ${SIDEBAR_WIDTH}px;
   top: 0;
   left: 90px;
-  z-index: 9999;
+  z-index: 9;
   background-color: inherit;
 `;
 

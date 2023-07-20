@@ -3,6 +3,7 @@ import { MdClose } from 'react-icons/md';
 import { ModalContainer, ModalContentBody, ModalHeader } from './index';
 import { OverlayStyle } from '../../utils/styles';
 import CreateConversationForm from '../forms/create-conversation-form';
+import ConversationTypeForm from '../forms/conversation-type-form';
 
 type Props = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -39,6 +40,7 @@ export default function CreateConversationModal({ setShowModal }: Props) {
           <MdClose size={32} onClick={() => setShowModal(false)} />
         </ModalHeader>
         <ModalContentBody>
+          <ConversationTypeForm />
           <CreateConversationForm closeModal={() => setShowModal(false)} />
         </ModalContentBody>
       </ModalContainer>
