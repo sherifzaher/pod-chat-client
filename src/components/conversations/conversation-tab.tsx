@@ -20,8 +20,7 @@ export default function ConversationTab() {
         <ConversationTabItemStyle
           selected={chat.type === selectedType}
           key={chat.type}
-          onClick={() => onSelectType(chat)}
-        >
+          onClick={() => onSelectType(chat)}>
           {chat.label}
         </ConversationTabItemStyle>
       ))}
