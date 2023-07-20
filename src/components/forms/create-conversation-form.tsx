@@ -9,6 +9,7 @@ import {
   InputField,
   InputLabel,
   RecipientResultContainer,
+  RecipientResultItem,
   TextField
 } from '../../utils/styles';
 import { createConversationThunk } from '../../store/slices/conversation-slice';
@@ -43,6 +44,8 @@ export default function CreateConversationForm({ closeModal, type }: Props) {
         .then((res) => setUsers(res.data))
         .catch((err) => console.log(err))
         .finally(() => setSearching(false));
+    } else {
+      setUsers([]);
     }
   }, [debouncedValue]);
 
@@ -66,7 +69,13 @@ export default function CreateConversationForm({ closeModal, type }: Props) {
           <InputLabel>Recipient</InputLabel>
           <InputField onChange={(e) => setQuery(e.target.value)} />
         </InputContainer>
-        <RecipientResultContainer>asd</RecipientResultContainer>
+        <RecipientResultContainer>
+          {users.map((user) => (
+            <RecipientResultItem key={user.id}>
+              <span>{user.email}</span>
+            </RecipientResultItem>
+          ))}
+        </RecipientResultContainer>
       </section>
       <section className={styles.message}>
         <InputContainer backgroundColor="#161616">

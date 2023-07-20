@@ -503,3 +503,14 @@ export const RecipientResultContainer = styled.div`
     display: none;
   }
 `;
+
+export const RecipientResultItem = styled.div`
+  padding: 20px 28px;
+  transition: 200ms background-color ease;
+  border: 2px solid #161616;
+  &:hover {
+    cursor: pointer;
+    background-color: #0c0c0c;
+    border: 2px solid #4e4e4e78;
+  }
+`;
