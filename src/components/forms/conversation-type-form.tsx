@@ -1,20 +1,30 @@
+import { SetStateAction } from 'react';
 import styles from './index.module.scss';
+import { chatTypes } from '../../utils/constants';
 
-export default function ConversationTypeForm() {
+type Props = {
+  type: ConversationSelectedType;
+  setType: React.Dispatch<SetStateAction<ConversationSelectedType>>;
+};
+
+export default function ConversationTypeForm({ type, setType }: Props) {
   return (
     <form className={styles.conversationTypeForm}>
-      <div>
-        <input className={styles.radio} type="radio" name="converationType" id="private" />
-        <label className={styles.radioLabel} htmlFor="private">
-          Private
-        </label>
-      </div>
-      <div>
-        <input className={styles.radio} type="radio" name="converationType" id="group" />
-        <label className={styles.radioLabel} htmlFor="group">
-          Group
-        </label>
-      </div>
+      {chatTypes.map((chatType) => (
+        <div key={chatType.type}>
+          <input
+            checked={type === chatType.type}
+            className={styles.radio}
+            type="radio"
+            name="converationType"
+            onChange={() => setType(chatType.type)}
+            id={chatType.type}
+          />
+          <label className={styles.radioLabel} htmlFor={chatType.type}>
+            {chatType.label}
+          </label>
+        </div>
+      ))}
     </form>
   );
 }

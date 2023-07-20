@@ -8,9 +8,10 @@ import { AppDispatch } from '../../store';
 
 type Props = {
   closeModal: () => void;
+  type: ConversationSelectedType;
 };
 
-export default function CreateConversationForm({ closeModal }: Props) {
+export default function CreateConversationForm({ closeModal, type }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {
@@ -27,6 +28,12 @@ export default function CreateConversationForm({ closeModal }: Props) {
         navigate(`/conversations/${data.id}`);
       })
       .catch((err) => console.log(err));
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (type === 'group') {
+      console.log(e.target.value);
+    }
   };
 
   return (
