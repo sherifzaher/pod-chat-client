@@ -27,7 +27,7 @@ function GroupChannelPage() {
     return () => {
       socket.emit('onGroupLeave', { groupId: id });
     };
-  }, []);
+  }, [id, socket]);
 
   return (
     <ConversationChannelPageStyle>
