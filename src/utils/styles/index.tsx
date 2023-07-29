@@ -30,6 +30,12 @@ export const InputContainer = styled.div<InputContainerProps>`
   width: 100%;
 `;
 
+export const RecipientChipContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+`;
+
 export const InputLabel = styled.label`
   display: block;
   color: #8f8f8f;
@@ -491,27 +497,36 @@ export const SidebarContainerItemContent = styled.div`
   }
 `;
 
-export const RecipientResultContainer = styled.div`
+export const RecipientResultContainerStyle = styled.div`
   position: absolute;
   background-color: #161616;
   left: 0;
   right: 0;
-  overflow-y: scroll;
   margin: 4px 24px;
-  max-height: 190px;
-  &::-webkit-scrollbar {
+`;
+
+export const RecipientScrollableItemContainer = styled.div`
+  height: 140px;
+  overflow: scroll;
+  &&::-webkit-scrollbar {
     display: none;
   }
+`;
+
+export const RecipientBottomSection = styled.div`
+  border-top: 1px solid #fff;
+  margin: 4px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 `;
 
 export const RecipientResultItem = styled.div`
   padding: 20px 28px;
   transition: 200ms background-color ease;
-  border: 2px solid #161616;
   &:hover {
     cursor: pointer;
     background-color: #0c0c0c;
-    border: 2px solid #4e4e4e78;
   }
 `;
 
