@@ -60,7 +60,7 @@ export const deleteGroupMessageAPI = ({ groupId, messageId }: DeleteGroupMessage
     config
   );
 
-export const editGroupMessage = ({ groupId, messageId, content }: EditGroupMessagePayload) =>
+export const editGroupMessageAPI = ({ groupId, messageId, content }: EditGroupMessagePayload) =>
   axiosClient.patch<GroupMessageType>(
     `/groups/${groupId}/messages/${messageId}`,
     { content },

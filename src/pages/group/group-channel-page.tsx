@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { AppDispatch } from '../../store';
-import { fetchGroupMessagesThunk } from '../../store/slices/group-message-slice';
+import { editGroupMessage, fetchGroupMessagesThunk } from '../../store/slices/group-message-slice';
 
 import MessagePanel from '../../components/messages/message-panel';
 
@@ -24,8 +24,15 @@ function GroupChannelPage() {
   useEffect(() => {
     if (!id) return;
     socket.emit('onGroupJoin', { groupId: id });
+    socket.on('onGroupMessageUpdate', (payload: GroupMessageType) => {
+      console.log('onGroupMessageUpdate received');
+      console.log(payload);
+      dispatch(editGroupMessage(payload));
+    });
+
     return () => {
       socket.emit('onGroupLeave', { groupId: id });
+      socket.off('onGroupMessageUpdate');
     };
   }, [id, socket]);
 
