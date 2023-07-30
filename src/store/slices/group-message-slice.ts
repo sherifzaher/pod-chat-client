@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchGroupMessages as fetchGroupMessagesAPI } from '../../utils/api';
+import {
+  deleteGroupMessageAPI,
+  fetchGroupMessages as fetchGroupMessagesAPI
+} from '../../utils/api';
 import { RootState } from '../index';
+import { deleteMessageThunk } from './messages-slice';
 
 export interface GroupMessagesState {
   messages: GroupMessage[];
@@ -14,6 +18,11 @@ export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', (
   fetchGroupMessagesAPI(id)
 );
 
+export const deleteGroupMessageThunk = createAsyncThunk(
+  'groupMessages/delete',
+  (params: DeleteGroupMessageParams) => deleteGroupMessageAPI(params)
+);
+
 export const GroupMessagesSlice = createSlice({
   name: 'groupMessages',
   initialState,
@@ -25,16 +34,27 @@ export const GroupMessagesSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
-      const { id } = action.payload.data;
-      console.log('fetchGroupMessagesThunk.fulfilled');
-      console.log(action.payload.data);
-      const index = state.messages.findIndex((gm) => gm.id === id);
-      const exists = state.messages.find((gm) => gm.id === id);
-      exists
-        ? (state.messages[index] = action.payload.data)
-        : state.messages.push(action.payload.data);
-    });
+    builder
+      .addCase(fetchGroupMessagesThunk.fulfilled, (state, action) => {
+        const { id } = action.payload.data;
+        console.log('fetchGroupMessagesThunk.fulfilled');
+        console.log(action.payload.data);
+        const index = state.messages.findIndex((gm) => gm.id === id);
+        const exists = state.messages.find((gm) => gm.id === id);
+        exists
+          ? (state.messages[index] = action.payload.data)
+          : state.messages.push(action.payload.data);
+      })
+      .addCase(deleteGroupMessageThunk.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        const groupMessages = state.messages.find((gm) => gm.id === data.groupId);
+
+        const messageIndex = groupMessages?.messages.findIndex((m) => m.id === data.messageId)!;
+
+        if (messageIndex > -1) {
+          groupMessages?.messages.splice(messageIndex, 1);
+        }
+      });
   }
 });
 

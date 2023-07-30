@@ -64,6 +64,11 @@ type DeleteMessageParams = {
   messageId: number;
 };
 
+type DeleteGroupMessageParams = {
+  groupId: number;
+  messageId: number;
+};
+
 type DeleteMessageResponse = {
   conversationId: number;
   messageId: number;

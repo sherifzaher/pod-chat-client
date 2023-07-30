@@ -10,12 +10,15 @@ import {
 } from '../../store/slices/message-container-slice';
 
 import { useAuthContext } from '../../context/auth-context';
+import { deleteGroupMessageThunk } from '../../store/slices/group-message-slice';
 
 type Props = {
   points: { x: number; y: number };
 };
 export default function SelectedMessageContextMenu({ points }: Props) {
   const message = useSelector((state: RootState) => state.messageContainer.selectedMessage);
+  const conversationType = useSelector((state: RootState) => state.selectedConversationType.type);
+
   const { id } = useParams();
   const { user } = useAuthContext();
 
@@ -23,9 +26,13 @@ export default function SelectedMessageContextMenu({ points }: Props) {
 
   const handleDeleteMessage = async () => {
     if (!message || !id) return;
-    const conversationId = Number(id!);
+    const channelId = Number(id!);
     console.log(`Deleting Message ${message?.id}`);
-    dispatch(deleteMessageThunk({ conversationId, messageId: message.id }));
+
+    if (conversationType === 'private') {
+      return dispatch(deleteMessageThunk({ conversationId: channelId, messageId: message.id }));
+    }
+    return dispatch(deleteGroupMessageThunk({ groupId: channelId, messageId: message.id }));
   };
 
   const editMessage = () => {

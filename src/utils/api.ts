@@ -53,3 +53,9 @@ export const searchUsers = (query: string) =>
 
 export const createGroupAPI = (params: CreateGroupParams) =>
   axiosClient.post('/groups', params, config);
+
+export const deleteGroupMessageAPI = ({ groupId, messageId }: DeleteGroupMessageParams) =>
+  axiosClient.delete<DeleteGroupMessageParams>(
+    `${REACT_APP_API_URL}/groups/${groupId}/messages/${messageId}`,
+    config
+  );
