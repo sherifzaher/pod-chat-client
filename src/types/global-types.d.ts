@@ -74,11 +74,18 @@ type DeleteMessageResponse = {
   messageId: number;
 };
 
-type EditMessagePayload = {
-  conversationId: number;
+type MessagePayload = {
   messageId: number;
   content: string;
 };
+
+type EditMessagePayload = {
+  conversationId: number;
+} & MessagePayload;
+
+type EditGroupMessagePayload = {
+  groupId: number;
+} & MessagePayload;
 
 type ConversationSelectedType = 'private' | 'group';
 

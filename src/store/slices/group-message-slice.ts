@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   deleteGroupMessageAPI,
+  editGroupMessage,
   fetchGroupMessages as fetchGroupMessagesAPI
 } from '../../utils/api';
 import { RootState } from '../index';
-import { deleteMessageThunk } from './messages-slice';
 
 export interface GroupMessagesState {
   messages: GroupMessage[];
@@ -21,6 +21,11 @@ export const fetchGroupMessagesThunk = createAsyncThunk('groupMessages/fetch', (
 export const deleteGroupMessageThunk = createAsyncThunk(
   'groupMessages/delete',
   (params: DeleteGroupMessageParams) => deleteGroupMessageAPI(params)
+);
+
+export const editGroupMessageThunk = createAsyncThunk(
+  'groupMessages/edit',
+  (params: EditGroupMessagePayload) => editGroupMessage(params)
 );
 
 export const GroupMessagesSlice = createSlice({
@@ -54,6 +59,21 @@ export const GroupMessagesSlice = createSlice({
         if (messageIndex > -1) {
           groupMessages?.messages.splice(messageIndex, 1);
         }
+      })
+      .addCase(editGroupMessageThunk.fulfilled, (state, action) => {
+        console.log('editGroupMessageThunk.fulfilled');
+        console.log(action.payload.data);
+
+        const { data: groupMessage } = action.payload;
+        const { id: groupId } = groupMessage.group;
+
+        const groupMessages = state.messages.find((gm) => gm.id === groupId);
+        if (!groupMessages) return;
+
+        const messageIndex = groupMessages.messages.findIndex((msg) => msg.id === groupMessage.id);
+        if (messageIndex < 0) return;
+
+        groupMessages.messages[messageIndex] = groupMessage;
       });
   }
 });
