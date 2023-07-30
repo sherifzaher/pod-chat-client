@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   createGroupAPI,
   fetchGroups as FetchGroupsAPI,
@@ -22,7 +22,12 @@ export const createGroupThunk = createAsyncThunk('group/create', (data: string[]
 export const GroupSlice = createSlice({
   name: 'groups',
   initialState,
-  reducers: {},
+  reducers: {
+    addGroup: (state, action: PayloadAction<Group>) => {
+      console.log(`addGroup reducer: Adding ${action.payload.id} to statesc`);
+      state.groups.unshift(action.payload);
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchGroupThunk.fulfilled, (state, action) => {
       console.log(action.payload.data);
@@ -31,5 +36,5 @@ export const GroupSlice = createSlice({
   }
 });
 
-// export const { } = GroupSlice.actions;
+export const { addGroup } = GroupSlice.actions;
 export default GroupSlice.reducer;
