@@ -115,3 +115,8 @@ type GroupMessageEventPayload = {
   message: GroupMessageType;
   group: Group;
 };
+
+type CreateGroupParams = {
+  users: string[];
+  title: string;
+};

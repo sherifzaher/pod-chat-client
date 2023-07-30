@@ -1,10 +1,12 @@
-import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { tr } from 'date-fns/locale';
 import {
   Button,
   InputContainer,
+  InputField,
   InputLabel,
   RecipientChipContainer,
   TextField
@@ -31,6 +33,11 @@ export default function CreateGroupForm({ closeModal }: Props) {
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [message, setMessage] = useState('');
+  const [title, setTitle] = useState('');
+
+  const disabled = useMemo(() => {
+    return !selectedUsers.length || !title;
+  }, [title, selectedUsers]);
 
   const debouncedValue = useDebounce<typeof query>(query, 1000);
   const dispatch = useDispatch<AppDispatch>();
@@ -38,10 +45,10 @@ export default function CreateGroupForm({ closeModal }: Props) {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selectedUsers.length) return;
+    if (disabled) return;
 
     const emails = selectedUsers.map((userItem) => userItem.email);
-    dispatch(createGroupThunk(emails))
+    dispatch(createGroupThunk({ users: emails, title }))
       .unwrap()
       .then(({ data }) => {
         closeModal();
@@ -93,11 +100,17 @@ export default function CreateGroupForm({ closeModal }: Props) {
       )}
       <section className={styles.message}>
         <InputContainer backgroundColor="#161616">
+          <InputLabel>Title</InputLabel>
+          <InputField value={title} onChange={(e) => setTitle(e.target.value)} />
+        </InputContainer>
+      </section>
+      <section className={styles.message}>
+        <InputContainer backgroundColor="#161616">
           <InputLabel>Message (optional)</InputLabel>
           <TextField value={message} onChange={(e) => setMessage(e.target.value)} />
         </InputContainer>
       </section>
-      <Button disabled={selectedUsers.length === 0} type="submit">
+      <Button disabled={disabled} type="submit">
         Create Group
       </Button>
     </form>

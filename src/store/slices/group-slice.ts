@@ -15,7 +15,7 @@ const initialState: GroupState = {
 
 export const fetchGroupThunk = createAsyncThunk('group/fetch', () => FetchGroupsAPI());
 
-export const createGroupThunk = createAsyncThunk('group/create', (data: string[]) =>
+export const createGroupThunk = createAsyncThunk('group/create', (data: CreateGroupParams) =>
   createGroupAPI(data)
 );
 
