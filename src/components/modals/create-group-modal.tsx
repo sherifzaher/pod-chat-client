@@ -2,16 +2,14 @@ import { createRef, Dispatch, SetStateAction, useCallback, useEffect, useState }
 import { MdClose } from 'react-icons/md';
 import { ModalContainer, ModalContentBody, ModalHeader } from './index';
 import { OverlayStyle } from '../../utils/styles';
-import CreateConversationForm from '../forms/create-conversation-form';
-import ConversationTypeForm from '../forms/conversation-type-form';
+import CreateGroupForm from '../forms/create-group-form';
 
 type Props = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function CreateConversationModal({ setShowModal }: Props) {
+export default function CreateGroupModal({ setShowModal }: Props) {
   const ref = createRef<HTMLDivElement>();
-  const [type, setType] = useState<ConversationSelectedType>('private');
 
   useEffect(() => {
     const handleKeyDown = (e: globalThis.KeyboardEvent) =>
@@ -37,12 +35,11 @@ export default function CreateConversationModal({ setShowModal }: Props) {
     <OverlayStyle ref={ref} onClick={handleOverlayClick}>
       <ModalContainer>
         <ModalHeader>
-          <h2>Create a Conversation</h2>
+          <h2>Create a Group</h2>
           <MdClose size={32} onClick={() => setShowModal(false)} />
         </ModalHeader>
         <ModalContentBody>
-          {/* <ConversationTypeForm setType={setType} type={type} /> */}
-          <CreateConversationForm closeModal={() => setShowModal(false)} />
+          <CreateGroupForm closeModal={() => setShowModal(false)} />
         </ModalContentBody>
       </ModalContainer>
     </OverlayStyle>

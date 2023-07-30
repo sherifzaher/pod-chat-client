@@ -25,8 +25,7 @@ function App() {
             <AuthenticatedRoutes>
               <AppPage />
             </AuthenticatedRoutes>
-          }
-        >
+          }>
           <Route path="conversations" element={<ConversationsPage />}>
             <Route path=":id" element={<ConversationChannelPage />} />
           </Route>

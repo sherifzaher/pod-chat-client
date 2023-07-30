@@ -34,7 +34,10 @@ export const InputContainer = styled.div<InputContainerProps>`
 export const RecipientChipContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 4px 10px;
 `;
 
 export const InputLabel = styled.label`
@@ -55,13 +58,21 @@ export const Button = styled.button`
   font-weight: 500;
   transition: 250ms border-color ease-in, 300ms border-color ease-in;
   border: 2px solid #2b09ff;
+
   &:focus {
     background-color: #4f34ff;
     border-color: #fff;
   }
+
   &:hover {
     cursor: pointer;
     background-color: #3415ff;
+  }
+
+  &:disabled {
+    background-color: #4d4d4d;
+    border-color: transparent;
+    cursor: not-allowed;
   }
 `;
 
@@ -438,7 +449,7 @@ export const RecipientResultContainerStyle = styled.div`
 `;
 
 export const RecipientScrollableItemContainer = styled.div`
-  height: 140px;
+  max-height: 190px;
   overflow: scroll;
   &&::-webkit-scrollbar {
     display: none;
@@ -463,8 +474,8 @@ export const RecipientResultItem = styled.div`
 `;
 
 export const SelectedRecipientPillStyle = styled.div`
-  margin-top: 10px;
-  background-color: #111;
+  border: 1px solid #323232b0;
+  font-size: 14px;
   width: fit-content;
   border-radius: 50px;
   padding: 6px 18px;
@@ -515,6 +526,7 @@ export const ConversationSidebarHeader = styled.div`
   box-shadow: 5px 0 5px 1px #000;
   display: flex;
   align-items: center;
+  gap: 10px;
 `;
 
 export const ConversationScrollableContainer = styled.div`

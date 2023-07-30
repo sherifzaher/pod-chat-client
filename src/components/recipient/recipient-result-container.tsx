@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import {
-  RecipientBottomSection,
   RecipientResultContainerStyle,
   RecipientResultItem,
   RecipientScrollableItemContainer
@@ -9,28 +8,12 @@ import {
 type Props = {
   userResults: User[];
   handleSelectUser: (user: User) => void;
-  type: ConversationSelectedType;
-  handleMultipleUserSelect: (user: User) => void;
-  removeAllSelectedUsers: () => void;
-  saveResults: () => void;
 };
 
-export default function RecipientResultContainer({
-  userResults,
-  handleSelectUser,
-  type,
-  handleMultipleUserSelect,
-  removeAllSelectedUsers,
-  saveResults
-}: Props) {
+export default function RecipientResultContainer({ userResults, handleSelectUser }: Props) {
   const handleSelectSelection = useCallback(
-    (user: User) => {
-      if (type === 'private') {
-        return handleSelectUser(user);
-      }
-      handleMultipleUserSelect(user);
-    },
-    [handleMultipleUserSelect, handleSelectUser, type]
+    (user: User) => handleSelectUser(user),
+    [handleSelectUser]
   );
 
   return (
@@ -42,11 +25,6 @@ export default function RecipientResultContainer({
           </RecipientResultItem>
         ))}
       </RecipientScrollableItemContainer>
-      <RecipientBottomSection>
-        <span onClick={removeAllSelectedUsers}>Cancel</span>
-        {'  '}
-        <span onClick={saveResults}>Save</span>
-      </RecipientBottomSection>
     </RecipientResultContainerStyle>
   );
 }

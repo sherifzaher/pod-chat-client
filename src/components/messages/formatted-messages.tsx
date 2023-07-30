@@ -36,8 +36,7 @@ export default function FormattedMessage({
             className="authorName"
             style={{
               color: user?.id === message.author.id ? '#757575' : '#5E8BFF'
-            }}
-          >
+            }}>
             {message.author.firstName} {message.author.lastName}
           </span>
           <span className="time">{formatRelative(new Date(message.createdAt), new Date())}</span>
