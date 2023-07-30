@@ -32,7 +32,8 @@ export default function ConversationSelected() {
         <ConversationSelectedItem
           selected={selectedType === chat.type}
           key={chat.type}
-          onClick={() => onSelectType(chat.type as ConversationSelectedType)}>
+          onClick={() => onSelectType(chat.type as ConversationSelectedType)}
+        >
           {chat.label}
         </ConversationSelectedItem>
       ))}

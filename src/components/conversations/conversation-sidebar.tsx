@@ -1,21 +1,18 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import { TbEdit } from 'react-icons/tb';
-
-import { RootState } from '../../store';
-import CreateConversationModal from '../modals/create-conversation-modal';
 import {
-  ConversationSidebarContainer,
+  ConversationScrollableContainer,
+  ConversationSearchbar,
   ConversationSidebarHeader,
-  ConversationSidebarStyle
+  ConversationSidebarStyle,
+  ConversationSidebarContainer
 } from '../../utils/styles';
-import ConversationSelected from './conversation-selected';
+
+import ConversationTab from './conversation-tab';
 import ConversationSidebarItem from './conversation-sidebar-item';
 import GroupSidebarItem from '../groups/group-sidebar-item';
+import { RootState } from '../../store';
 
-function ConversationSidebar() {
-  const [showModal, setShowModal] = useState(false);
+export default function ConversationSidebar() {
   const selectedConversationType = useSelector(
     (state: RootState) => state.selectedConversationType.type
   );
@@ -24,26 +21,20 @@ function ConversationSidebar() {
   const groups = useSelector((state: RootState) => state.groups.groups);
 
   return (
-    <>
-      {showModal && <CreateConversationModal setShowModal={setShowModal} />}
-      <ConversationSidebarStyle>
-        <ConversationSidebarHeader>
-          <h1>Conversations</h1>
-          <div onClick={() => setShowModal((prev) => !prev)}>
-            <TbEdit size="30" />
-          </div>
-        </ConversationSidebarHeader>
+    <ConversationSidebarStyle>
+      <ConversationSidebarHeader>
+        <ConversationSearchbar placeholder="Search for Conversations" />
+      </ConversationSidebarHeader>
+      <ConversationTab />
+      <ConversationScrollableContainer>
         <ConversationSidebarContainer>
-          <ConversationSelected />
           {selectedConversationType === 'private'
             ? conversations.map((conversation) => (
                 <ConversationSidebarItem conversation={conversation} key={conversation.id} />
               ))
             : groups.map((group) => <GroupSidebarItem group={group} key={group.id} />)}
         </ConversationSidebarContainer>
-      </ConversationSidebarStyle>
-    </>
+      </ConversationScrollableContainer>
+    </ConversationSidebarStyle>
   );
 }
-
-export default ConversationSidebar;

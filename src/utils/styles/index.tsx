@@ -5,7 +5,8 @@ import {
   InputContainerProps,
   MessageItemContentProps,
   MessageTypingStatusProps,
-  PageProps
+  PageProps,
+  SidebarItemProps
 } from '../../types/style-types';
 
 export const SIDEBAR_WIDTH = 400;
@@ -52,8 +53,7 @@ export const Button = styled.button`
   border-radius: 10px;
   padding: 25px;
   font-weight: 500;
-  transition: 250ms background-color ease-in;
-  transition: 300ms border-color ease-in;
+  transition: 250ms border-color ease-in, 300ms border-color ease-in;
   border: 2px solid #2b09ff;
   &:focus {
     background-color: #4f34ff;
@@ -73,49 +73,13 @@ export const Page = styled.div<PageProps>`
   align-items: ${(props) => props.alignItems};
 `;
 
-export const ConversationSidebarStyle = styled.aside`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: ${SIDEBAR_WIDTH}px;
-  background-color: #1a1a1a;
-  border-right: 1px solid #5454543d;
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    //width: 10px;
-    //height: 5px;
-    display: none;
-  }
-  ::-webkit-scrollbar-thumb {
-    //background-color: #2d2d2d;
-  }
-`;
-
-export const ConversationSidebarHeader = styled.header`
-  position: fixed;
-  top: 0;
-  width: ${SIDEBAR_WIDTH}px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 18px;
-  background-color: #151515;
-  height: 100px;
-  border-bottom: 1px solid #5454543d;
-  & h1 {
-    font-weight: 500;
-  }
-`;
-
 export const ConversationChannelPageStyle = styled.div`
   height: 100%;
-  margin-left: ${SIDEBAR_WIDTH + 90}px;
+  width: 100%;
 `;
 
-export const ConversationSidebarContainer = styled.div`
-  margin-top: 100px;
-`;
+export const ConversationSidebarContainer = styled.div``;
+
 export const ConversationSidebarItemStyle = styled.div`
   display: flex;
   align-items: center;
@@ -174,20 +138,18 @@ export const TextField = styled.textarea`
 `;
 
 export const MessagePanelStyle = styled.div`
-  background-color: #151515;
-  height: calc(100% - 1px);
+  height: 100%;
   width: 100%;
-  position: relative;
   display: flex;
-  align-items: end;
+  flex-direction: column;
   border-left: 1px solid #5454543d;
 `;
 
 export const MessagePanelBody = styled.div`
-  height: calc(100% - 100px);
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1 1 auto;
   padding: 0 24px 0;
 `;
 
@@ -211,6 +173,10 @@ export const MessageInputContainer = styled.div`
   & form {
     width: 100%;
   }
+`;
+
+export const MessagePanelFooter = styled.footer`
+  padding: 0 32px 10px 32px;
 `;
 
 export const MessageInput = styled.input`
@@ -271,16 +237,15 @@ export const MessageItemContent = styled.div<MessageItemContentProps>`
 
 export const MessagePanelHeaderStyle = styled.header`
   background-color: #141414;
-  border-bottom: 1px solid #5454543d;
+  border-bottom: 1px solid #22222256;
+  box-shadow: 5px 0 5px 1px #000;
   height: 90px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 32px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  flex-shrink: 0;
 `;
 
 export const ContextMenuStyles = styled.div<ContextMenuProps>`
@@ -369,22 +334,7 @@ export const UserAvatar = styled.img`
   width: 55px;
   height: 55px;
   border-radius: 55px;
-  background-color: #2727ff;
-`;
-
-export const UserSidebarStyle = styled.aside`
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  width: 90px;
-  background-color: #121212;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 32px;
+  margin: 10px 0;
 `;
 
 export const UserSidebarTop = styled.div`
@@ -437,39 +387,21 @@ export const ConversationSidebarHeaderStyle = styled.header`
   background-color: inherit;
 `;
 
-export const ConversationSearchbar = styled.input`
-  box-sizing: border-box;
-  background-color: #202020;
-  outline: none;
-  border: none;
-  font-family: 'Inter';
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 18px;
-  color: #6b6b6b;
-  border-radius: 5px;
-  width: 100%;
-`;
-
 export const ConversationTabStyle = styled.section`
   display: flex;
-  justify-content: center;
   gap: 20px;
-  border-top: 2px solid #2727275f;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin: 14px 18px;
 `;
 
 export const ConversationTabItemStyle = styled.section<ConversationSelectedProps>`
-  background-color: #212121;
-  padding: 10px 32px;
-  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: ${({ selected }) => (!selected ? '#1f1f1f' : '#383838')};
+  padding: 8px 18px;
   border-radius: 5px;
-  ${(props) =>
-    props.selected &&
-    css`
-      background-color: #303030;
-    `};
+  text-transform: uppercase;
 `;
 
 export const SidebarContainerStyle = styled.div``;
@@ -551,4 +483,67 @@ export const SelectedRecipientPillStyle = styled.div`
       color: #c62d2d;
     }
   }
+`;
+
+export const LayoutPage = styled.div`
+  height: 100%;
+  display: flex;
+`;
+
+export const UserSidebarStyle = styled.div`
+  height: 100%;
+  background-color: #111111;
+  display: flex;
+  flex: 0 0 80px;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const ConversationSidebarStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 400px;
+  background-color: #111;
+`;
+
+export const ConversationSidebarHeader = styled.div`
+  padding: 10px 30px;
+  height: 90px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #22222256;
+  box-shadow: 5px 0 5px 1px #000;
+  display: flex;
+  align-items: center;
+`;
+
+export const ConversationScrollableContainer = styled.div`
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const ConversationSearchbar = styled.input`
+  background-color: #1c1c1c;
+  color: #e1e1e1;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: 'Inter', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  border-radius: 5px;
+`;
+
+export const UserSidebarItem = styled.div<SidebarItemProps>`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background-color: ${({ active }) => active && '#1e1e1e'};
 `;
